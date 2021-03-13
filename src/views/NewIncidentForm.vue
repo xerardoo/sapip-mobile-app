@@ -42,12 +42,27 @@
             Person,
             Resume,
         },
+        created() {
+            if (!("geolocation" in navigator))
+                this.$bvToast.toast('Geolocalizacion no esta disponible', this.$toastError);
+
+            navigator.geolocation.getCurrentPosition(pos => {
+                this.geolocation.accuracy = pos['coords'].accuracy;
+                this.geolocation.longitude = pos['coords'].longitude;
+                this.geolocation.latitude = pos['coords'].latitude;
+                this.geolocation.timestamp = pos['timestamp'];
+            }, err => {
+                this.$bvToast.toast(err.message, this.$toastError);
+            })
+        },
         data() {
             return {
                 currentStep: 1,
-                location: {
-                    lat: 0,
-                    long: 0
+                geolocation: {
+                    timestamp: 0,
+                    accuracy: 0,
+                    longitude: 0,
+                    latitude: 0
                 },
                 incident: {
                     description: '',
@@ -100,6 +115,8 @@
                 if (!this.incident.completed) return this.goToStep(1);
                 if (!this.personas.completed) return this.goToStep(2);
                 if (!this.vehicles.completed) return this.goToStep(3);
+                if (!this.geolocation.longitude && !this.geolocation.latitude) return;
+
                 alert("Save")
             },
         }
