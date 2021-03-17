@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
+import axios from 'axios'
 import router from './router'
 import store from './store'
 
 import {BootstrapVue} from 'bootstrap-vue'
+import moment from 'moment'
+
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -41,6 +44,7 @@ import {
     faUserFriends,
     faCar,
     faArrowRight,
+    faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -48,7 +52,7 @@ library.add(faUserSecret, faChevronRight, faChevronLeft, faChevronUp,
     faChevronDown, faCamera, faTasks, faSave, faFlagUsa, faClipboardCheck,
     faPencilAlt, faDownload, faAsterisk, faSignInAlt, faUser, faSignOutAlt,
     faInbox, faBoxes, faStopwatch, faSpinner, faCheckCircle, faFingerprint,
-    faClipboard, faUserFriends, faCar, faArrowRight);
+    faClipboard, faUserFriends, faCar, faArrowRight, faPlus);
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -56,6 +60,11 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
+
+if (window.location.hostname !== 'localhost' && window.location.hostname !== '192.168.0.121')
+    axios.defaults.baseURL = location.protocol + '//' + window.location.host + '/v1';
+else
+    axios.defaults.baseURL = location.protocol + '//' + window.location.hostname + ':8091/v1/';
 
 Vue.prototype.$toastSuccess = {
     title: `Success`,
@@ -69,6 +78,14 @@ Vue.prototype.$toastError = {
     // autoHideDelay: 1000,
     solid: true
 };
+
+Vue.mixin({
+    methods: {
+        dateToLocal(date) {
+            return moment.utc(date).local().format('D/MM/YY h:mm a');
+        },
+    },
+});
 
 new Vue({
     router,

@@ -4,7 +4,10 @@
 
 
             <h4>Resumen</h4>
-
+            <br>
+            <br>
+            <br>
+            {{data.description}}
             <b-button type="submit" variant="primary" class="float-right">
                 <font-awesome-icon icon="save"/>
                 Guardar
@@ -16,7 +19,7 @@
 <script>
     export default {
         name: "Resume",
-        props: ['currentStep'],
+        props: ['currentStep','data'],
         data() {
             return {
                 form: {

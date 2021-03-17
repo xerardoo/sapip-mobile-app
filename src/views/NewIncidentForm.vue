@@ -23,7 +23,7 @@
         <incident @submit="stepOneSubmit" :current-step="currentStep"/>
         <person @submit="stepTwoSubmit" :current-step="currentStep"/>
         <vehicle @submit="stepThreeSubmit" :current-step="currentStep"/>
-        <resume @submit="stepFourSubmit" :current-step="currentStep"/>
+        <resume @submit="stepFourSubmit" :current-step="currentStep" :data="incident"/>
     </div>
 </template>
 
