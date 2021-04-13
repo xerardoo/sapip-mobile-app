@@ -8,7 +8,7 @@
             </b-button>
             <b-button squared size="sm" @click.prevent="goToStep(2)" :pressed="currentStep == 2">
                 <b-badge pill variant="light">2</b-badge>
-                Personas
+                Involucrados
             </b-button>
             <b-button squared size="sm" @click.prevent="goToStep(3)" :pressed="currentStep == 3">
                 <b-badge pill variant="light">3</b-badge>
@@ -20,10 +20,10 @@
             </b-button>
         </div>
 
-        <incident @submit="stepOneSubmit" :current-step="currentStep"/>
-        <person @submit="stepTwoSubmit" :current-step="currentStep"/>
-        <vehicle @submit="stepThreeSubmit" :current-step="currentStep"/>
-        <resume @submit="stepFourSubmit" :current-step="currentStep" :data="incident"/>
+        <incident @submit="stepOneSubmit" :current-step="currentStep" v-if="viewCreated"/>
+        <person @submit="stepTwoSubmit" :current-step="currentStep" v-if="viewCreated"/>
+        <vehicle @submit="stepThreeSubmit" :current-step="currentStep" v-if="viewCreated"/>
+        <resume @submit="stepFourSubmit" :current-step="currentStep" :data="incident" v-if="viewCreated"/>
     </div>
 </template>
 
@@ -33,6 +33,7 @@
     import Person from './Person'
     import Vehicle from './Vehicle'
     import Resume from './Resume'
+    import {mapActions} from 'vuex';
 
     export default {
         name: 'NewIncident',
@@ -46,17 +47,15 @@
             if (!("geolocation" in navigator))
                 this.$bvToast.toast('Geolocalizacion no esta disponible', this.$toastError);
 
-            navigator.geolocation.getCurrentPosition(pos => {
-                this.geolocation.accuracy = pos['coords'].accuracy;
-                this.geolocation.longitude = pos['coords'].longitude;
-                this.geolocation.latitude = pos['coords'].latitude;
-                this.geolocation.timestamp = pos['timestamp'];
-            }, err => {
-                this.$bvToast.toast(err.message, this.$toastError);
-            })
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.setGeolocation(position);
+                    this.viewCreated = true;
+                }, err => this.$bvToast.toast(err.message, this.$toastError));
         },
         data() {
             return {
+                viewCreated: false,
                 currentStep: 1,
                 geolocation: {
                     timestamp: 0,
@@ -64,21 +63,24 @@
                     longitude: 0,
                     latitude: 0
                 },
-                incident: {
-                    description: '',
-                    type: '',
-                    completed: false,
-                },
-                personas: {
-                    firstName: '',
-                    lastName: '',
-                    completed: false,
-                },
-                vehicles: {
-                    vin: '',
-                    brand: '',
-                    completed: false,
-                },
+                // incident: {
+                //     description: '',
+                //     type_id: '',
+                //     address: '',
+                //     area: '',
+                //     zipcode: '',
+                //     completed: false,
+                // },
+                // personas: {
+                //     firstName: '',
+                //     lastName: '',
+                //     completed: false,
+                // },
+                // vehicles: {
+                //     vin: '',
+                //     brand: '',
+                //     completed: false,
+                // },
             }
         },
         computed: {
@@ -95,11 +97,23 @@
             }
         },
         methods: {
+            ...mapActions({
+                setGeolocation: 'incident/setGeolocation',
+                setDescription: 'incident/setDescription',
+                setAddress: 'incident/setAddress',
+            }),
             goToStep: function (step) {
                 this.currentStep = step;
             },
             stepOneSubmit(data) {
-                this.incident.description = data.description;
+                this.setAddress(data.description);
+                this.setDescription({
+                    address: data.address,
+                    area: data.area,
+                    zipcode: data.zipcode,
+                });
+
+
                 this.goToStep(2);
                 this.incident.completed = true;
             },

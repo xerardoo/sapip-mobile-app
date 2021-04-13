@@ -35,7 +35,7 @@
                     <b-button type="button" size="sm" variant="outline-secondary" @click.prevent="addPearson"
                               v-if="persons.length===index+1">
                         <font-awesome-icon icon="plus"/>
-                        Persona
+                        Involucrado
                     </b-button>
                 </div>
             </div>

@@ -1,16 +1,31 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 1">
-            <div>
-                <b-form-group label="Descripción" label-for="txtDescription">
-                    <b-form-textarea id="txtDescription" v-model="form.description" trim required></b-form-textarea>
-                </b-form-group>
+            <div class="float-right">
+                <span class="badge badge-secondary">FECHA {{form.date}}</span>
             </div>
             <div>
                 <b-form-group label="Tipo" label-for="txtType">
-                    <b-form-input id="txtType" v-model="form.type" trim></b-form-input>
+                    <b-form-select v-model="form.type_id" :options="types"></b-form-select>
                 </b-form-group>
             </div>
+            <div>
+                <b-form-group label="Narrativa" label-for="txtDescription">
+                    <b-form-textarea id="txtDescription" v-model="form.description" trim rows="5"
+                                     focus required></b-form-textarea>
+                </b-form-group>
+            </div>
+
+            <b-form-group label="Domicilio" label-for="txtAddress">
+                <b-form-input id="txtAddress" v-model="form.address"></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Colonia" label-for="txtColonia">
+                <b-form-input id="txtColonia" v-model="form.area"></b-form-input>
+            </b-form-group>
+            <b-form-group label="C.P." label-for="txtCP">
+                <b-form-input id="txtCP" v-model="form.zipcode"></b-form-input>
+            </b-form-group>
 
             <b-button type="submit" variant="primary" class="float-right">
                 <font-awesome-icon icon="arrow-right"/>
@@ -21,18 +36,54 @@
 </template>
 
 <script>
+    import resource from '@/resources'
+    import {mapGetters} from 'vuex'
+
     export default {
         name: "Incident",
         props: ['currentStep'],
+        mounted() {
+            this.form.date = this.getNow;
+            this.loadIncidentTypes();
+            resource.data.GetGeocodingR(this.getLocation)
+                .then(res => {
+                    if (res.data.length === 0) return;
+                    let address = res.data[0]['address_components'];
+                    this.form.address = address[1]['long_name'] + ' #' + address[0]['long_name'];
+                    this.form.area = address[2]['long_name'];
+                    this.form.zipcode = address[6]['long_name'];
+                })
+        },
         data() {
             return {
+                types: [{value: null, text: 'Seleccione'}],
                 form: {
+                    type_id: null,
+                    date: null,
                     description: '',
-                    type: '',
+                    address: '',
+                    area: '',
+                    zipcode: '',
                 },
             }
         },
+        computed: {
+            ...mapGetters({
+                getLocation: 'incident/getGeolocation',
+            }),
+            getNow() {
+                let today = new Date();
+                let month = today.getMonth() + 1;
+                let date = today.getDate() + '-' + (month < 10 ? '0' + month : month) + '-' + today.getFullYear();
+                let time = today.getHours() + ":" + today.getMinutes();//+ ":" + today.getSeconds()
+                return date + ' ' + time;
+            },
+        },
         methods: {
+            loadIncidentTypes() {
+                resource.data.getIncidentTypes()
+                    .then(res => res.data.forEach(item => this.types.push({value: item.id, text: item.name})))
+            },
             onSubmit(e) {
                 e.preventDefault();
                 this.$emit('submit', this.form);
