@@ -63,24 +63,24 @@
                     longitude: 0,
                     latitude: 0
                 },
-                // incident: {
+                incident: {
                 //     description: '',
                 //     type_id: '',
                 //     address: '',
                 //     area: '',
                 //     zipcode: '',
-                //     completed: false,
-                // },
-                // personas: {
+                    completed: false,
+                },
+                personas: {
                 //     firstName: '',
                 //     lastName: '',
-                //     completed: false,
-                // },
-                // vehicles: {
+                    completed: false,
+                },
+                vehicles: {
                 //     vin: '',
                 //     brand: '',
-                //     completed: false,
-                // },
+                    completed: false,
+                },
             }
         },
         computed: {
@@ -117,7 +117,8 @@
                 this.goToStep(2);
                 this.incident.completed = true;
             },
-            stepTwoSubmit() {
+            stepTwoSubmit(personas) {
+                console.log("PERSONAS", personas)
                 this.goToStep(3);
                 this.personas.completed = true;
             },
