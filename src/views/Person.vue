@@ -4,15 +4,69 @@
             <div class="card mb-1" v-for="(p, index) in personas" :key="index">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-8 col-12">
+                        <div class="col-md-4 col-12">
+                            <h5 class="bg-secondary text-center text-white pt-1 pb-1">Persona 0{{index +1}}</h5>
+                            <b-img thumbnail fluid center :src="p.photo_front" class="photo" blank-color="#777"
+                                   :blank="!p.photo_front"></b-img>
+
+                            <div class="mt-1 text-center">
+                                <label :for="'camera-'+index" class="btn btn-outline-secondary">
+                                    <font-awesome-icon class="my-float" size="2x" icon="camera"/>
+                                    Frente
+                                </label>
+                                <input :ref="'camera-'+index" :id="'camera-'+index" class="camera" type="file"
+                                       accept="image/*"
+                                       capture="camera" @change="cameraChange($event ,index)">
+                            </div>
+
+                            <div>
+                                <b-form-group label="Tipo" label-for="txtType">
+                                    <b-form-select :options="types" v-model="p.type_id" required></b-form-select>
+                                </b-form-group>
+                            </div>
+                            <div>
+                                <b-form-group label="Sexo">
+                                    <b-form-radio v-model="p.sex" value="M"> Masculino
+                                    </b-form-radio>
+                                    <b-form-radio v-model="p.sex" value="F"> Femenino
+                                    </b-form-radio>
+                                </b-form-group>
+                            </div>
+                            <div>
+                                <b-form-group label="Nacionalidad">
+                                    <b-form-radio v-model="p.nationality" value="M"> Mexicana
+                                    </b-form-radio>
+                                    <b-form-radio v-model="p.nationality" value="F"> Extranjera
+                                    </b-form-radio>
+                                </b-form-group>
+                            </div>
+
+                        </div>
+                        <div class="col-md-8 col-12 ">
                             <div>
                                 <b-form-group label="Nombre" label-for="txtFirstName">
                                     <b-form-input id="txtFirstName" v-model="p.first_name" trim required></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
-                                <b-form-group label="Apellido" label-for="txtLastName">
+                                <b-form-group label="Primer Apellido" label-for="txtMiddleName">
+                                    <b-form-input id="txtMiddleName" v-model="p.middle_name" trim
+                                                  required></b-form-input>
+                                </b-form-group>
+                            </div>
+                            <div>
+                                <b-form-group label="Segundo Apellido" label-for="txtLastName">
                                     <b-form-input id="txtLastName" v-model="p.last_name" trim required></b-form-input>
+                                </b-form-group>
+                            </div>
+                            <div>
+                                <b-form-group label="Alias" label-for="txtAlias">
+                                    <b-form-input id="txtAlias" v-model="p.alias" trim required></b-form-input>
+                                </b-form-group>
+                            </div>
+                            <div>
+                                <b-form-group label="Ocupación" label-for="txtOcupation">
+                                    <b-form-input id="txtOcupation" v-model="p.occupation" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div class="row">
@@ -31,32 +85,6 @@
                             <div>
                                 <b-form-group label="Lugar de Origen" label-for="txtHomeTown">
                                     <b-form-input id="txtHomeTown" v-model="p.hometown" trim></b-form-input>
-                                </b-form-group>
-                            </div>
-                            <div>
-                                <b-form-group label="Ocupación" label-for="txtOcupation">
-                                    <b-form-input id="txtOcupation" v-model="p.occupation" trim></b-form-input>
-                                </b-form-group>
-                            </div>
-
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <b-img thumbnail fluid center :src="p.photo_front" class="photo" blank-color="#777"
-                                   :blank="!p.photo_front"></b-img>
-
-                            <div class="mt-1 text-center">
-                                <label :for="'camera-'+index" class="btn btn-outline-secondary">
-                                    <font-awesome-icon class="my-float" size="2x" icon="camera"/>
-                                    Frente
-                                </label>
-                                <input :ref="'camera-'+index" :id="'camera-'+index" class="camera" type="file"
-                                       accept="image/*"
-                                       capture="camera" @change="cameraChange($event ,index)">
-                            </div>
-
-                            <div>
-                                <b-form-group label="Tipo" label-for="txtType">
-                                    <b-form-select :options="types" v-model="p.type_id" required></b-form-select>
                                 </b-form-group>
                             </div>
                         </div>
@@ -99,7 +127,11 @@
                 types: [],
                 personas: [{
                     first_name: '',
+                    middle_name: '',
                     last_name: '',
+                    alias: '',
+                    sex: '',
+                    nationality: '',
                     birth_date: '',
                     hometown: '',
                     occupation: '',
@@ -132,7 +164,11 @@
             addPearson() {
                 this.personas.push({
                     first_name: '',
+                    middle_name: '',
                     last_name: '',
+                    alias: '',
+                    sex: '',
+                    nationality: '',
                     birth_date: '',
                     hometown: '',
                     occupation: '',

@@ -1,36 +1,40 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 1">
-            <div class="float-right">
-                <span class="badge badge-secondary">FECHA {{form.date}}</span>
-            </div>
-            <div>
-                <b-form-group label="Tipo" label-for="txtType">
-                    <b-form-select v-model="form.type_id" :options="types"></b-form-select>
-                </b-form-group>
-            </div>
-            <div>
-                <b-form-group label="Narrativa" label-for="txtDescription">
-                    <b-form-textarea id="txtDescription" v-model="form.description" trim rows="5"
-                                     focus required></b-form-textarea>
-                </b-form-group>
-            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="float-right">
+                        <span class="badge badge-secondary">FECHA {{form.date}}</span>
+                    </div>
+                    <div>
+                        <b-form-group label="Tipo" label-for="txtType">
+                            <b-form-select v-model="form.type_id" :options="types"></b-form-select>
+                        </b-form-group>
+                    </div>
+                    <div>
+                        <b-form-group label="Narrativa de los Hechos" label-for="txtDescription">
+                            <b-form-textarea id="txtDescription" v-model="form.description" trim rows="5"
+                                             focus required></b-form-textarea>
+                        </b-form-group>
+                    </div>
 
-            <b-form-group label="Domicilio" label-for="txtAddress">
-                <b-form-input id="txtAddress" v-model="form.address"></b-form-input>
-            </b-form-group>
+                    <b-form-group label="Domicilio" label-for="txtAddress">
+                        <b-form-input id="txtAddress" v-model="form.address"></b-form-input>
+                    </b-form-group>
 
-            <b-form-group label="Colonia" label-for="txtColonia">
-                <b-form-input id="txtColonia" v-model="form.area"></b-form-input>
-            </b-form-group>
-            <b-form-group label="C.P." label-for="txtCP">
-                <b-form-input id="txtCP" v-model="form.zipcode"></b-form-input>
-            </b-form-group>
+                    <b-form-group label="Colonia" label-for="txtColonia">
+                        <b-form-input id="txtColonia" v-model="form.area"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="C.P." label-for="txtCP">
+                        <b-form-input id="txtCP" v-model="form.zipcode"></b-form-input>
+                    </b-form-group>
 
-            <b-button type="submit" variant="primary" class="float-right">
-                <font-awesome-icon icon="arrow-right"/>
-                Siguiente
-            </b-button>
+                    <b-button type="submit" variant="primary" class="float-right">
+                        <font-awesome-icon icon="arrow-right"/>
+                        Siguiente
+                    </b-button>
+                </div>
+            </div>
         </b-form>
     </div>
 </template>

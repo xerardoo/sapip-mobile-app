@@ -23,7 +23,10 @@ const incident = {
         personas: [
             // {
             //     first_name: '',
+            //     middle_name: '',
             //     last_name: '',
+            //     sex: '',
+            //     alias: '',
             //     birth_date: '',
             //     hometown: '',
             //     occupation: '',
@@ -33,8 +36,17 @@ const incident = {
         ],
         vehicles: [
             {
-                vin: '',
-                brand: '',
+                // vin: '',
+                // brand: '',
+                // subbrand: '',
+                // modelo: '',
+                // color: '',
+                // plate: '',
+                // plate_state: '',
+                // origin: '',
+                // use: '',
+                // observations: '',
+                // photo: '',
             }
         ],
     },
@@ -59,6 +71,9 @@ const incident = {
         },
         SET_PERSONAS(state, personas) {
             state.personas = personas;
+        },
+        SET_VEHICLES(state, vehicles) {
+            state.vehicles = vehicles;
         },
         // SET_CASH_AMOUNT(state, cash) {
         //     state.amounts.cash = cash;
@@ -128,6 +143,9 @@ const incident = {
         getPersonas: (state) => {
             return state.personas;
         },
+        getVehicles: (state) => {
+            return state.vehicles;
+        },
         // getItems: (state) => {
         //     return state.items;
         // },
@@ -177,6 +195,9 @@ const incident = {
         },
         setPersonas(ctx, personas) {
             ctx.commit('SET_PERSONAS', personas);
+        },
+        setVehicles(ctx, vehicles) {
+            ctx.commit('SET_VEHICLES', vehicles);
         },
         // addItem(ctx, item) {
         //     // const cartItem = ctx.state.items.find((i) => i.menu_item_id === item.menu_item_id);

@@ -93,6 +93,7 @@
                 setDescription: 'incident/setDescription',
                 setAddress: 'incident/setAddress',
                 setPersonas: 'incident/setPersonas',
+                setVehicles: 'incident/setVehicles',
             }),
             goToStep: function (step) {
                 this.currentStep = step;
@@ -114,7 +115,8 @@
                 this.goToStep(3);
                 this.personas.completed = true;
             },
-            stepThreeSubmit() {
+            stepThreeSubmit(vehicles) {
+                this.setVehicles(vehicles);
                 this.goToStep(4);
                 this.vehicles.completed = true;
             },
