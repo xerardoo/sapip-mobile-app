@@ -53,7 +53,7 @@
         </div>
 
         <div class="float new-incident">
-            <button class="btn btn-primary float" @click.prevent="$router.push({ path: 'new-incident' })">
+            <button class="btn btn-primary float" @click.prevent="$router.push({ path: '/new-incident' })">
                 <font-awesome-icon icon="clipboard" size="2x"/>
             </button>
         </div>

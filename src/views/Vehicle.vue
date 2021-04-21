@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 3">
-            <div class="card mb-1" v-for="(v, index) in vehicles" :key="index">
+            <div class="card mb-3" v-for="(v, index) in vehicles" :key="index">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 col-12">

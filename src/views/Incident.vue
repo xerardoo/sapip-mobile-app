@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 1">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <div class="float-right">
                         <span class="badge badge-secondary">FECHA {{form.date}}</span>
@@ -29,10 +29,17 @@
                         <b-form-input id="txtCP" v-model="form.zipcode"></b-form-input>
                     </b-form-group>
 
-                    <b-button type="submit" variant="primary" class="float-right">
-                        <font-awesome-icon icon="arrow-right"/>
-                        Siguiente
-                    </b-button>
+                    <!--<b-button type="submit" variant="primary" class="float-right">-->
+                        <!--<font-awesome-icon icon="arrow-right"/>-->
+                        <!--Siguiente-->
+                    <!--</b-button>-->
+
+                    <div class="float next">
+                        <b-button type="submit" variant="primary" class="float">
+                            <font-awesome-icon icon="arrow-right"/>
+                            Sig.
+                        </b-button>
+                    </div>
                 </div>
             </div>
         </b-form>
@@ -102,4 +109,8 @@
 
 <style scoped>
 
+    .my-float {
+        /*margin-top: 15px;*/
+        cursor: pointer;
+    }
 </style>

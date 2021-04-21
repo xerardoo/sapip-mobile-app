@@ -6,9 +6,11 @@
                       @submit.prevent="submit">
 					<span class="login100-form-title p-b-25">
                         <!--<img class="" src="@/assets/spindle.png" alt="">-->
-                        <!--<img class="" src="@/assets/logo-2.png" alt="">-->
+                        <img class="logo" src="@/assets/sapip.png" alt="">
                         <br>
-                        <font-awesome-icon icon="fingerprint"/>     Acceso Agente
+                        <br>
+                        <!--<font-awesome-icon icon="fingerprint"/>     -->
+                        Acceso Agente
 					</span>
 
                     <div class="wrap-input100 validate-input m-b-16"
@@ -54,12 +56,12 @@
 </template>
 
 <script>
-    import axios from "axios";
+    // import axios from "axios";
 
     export default {
         name: "Login",
         mounted() {
-            if (localStorage.getItem('pdata'))
+            if (localStorage.getItem('adta'))
                 this.$router.push({path: '/incidents'});
         },
         data() {
@@ -79,20 +81,32 @@
                     this.isValid = true;
                 }
                 this.$emit('spinner', true);
-                axios.post('/login', this.form)
-                    .then((response) => {
-                        this.$emit('spinner', false);
-                        this.$bvToast.toast('Bienvenido', this.$toastSuccess);
-                        localStorage.setItem('idata', JSON.stringify(response.data));
-                        this.$router.push({path: '/incidents'});
-                    })
-                    .catch(() => this.$emit('spinner', false));
+                // axios.post('/login', this.form)
+                //     .then((response) => {
+                //         this.$emit('spinner', false);
+                //         this.$bvToast.toast('Bienvenido', this.$toastSuccess);
+                //         localStorage.setItem('adta', JSON.stringify(response.data));
+                //         this.$router.push({path: '/incidents'});
+                //     })
+                //     .catch(() => this.$emit('spinner', false));
+
+                this.$nextTick(() => {
+                    this.$emit('spinner', false);
+                    this.$bvToast.toast('Bienvenido', this.$toastSuccess);
+                    localStorage.setItem('adta', JSON.stringify({'hello': 'world'}));
+                    this.$router.push({path: '/incidents'});
+                });
             }
         },
     }
 </script>
 
 <style scoped>
+
+    .logo {
+        max-height: 125px;
+    }
+
     /*//////////////////////////////////////////////////////////////////
     [ RESTYLE TAG ]*/
     * {
@@ -324,7 +338,7 @@
 
     .login100-form-title {
         /*font-family: Raleway-Black;*/
-        font-size: 20px;
+        font-size: 18px;
         color: #333333;
         line-height: 1.2;
         text-transform: uppercase;
@@ -357,21 +371,21 @@
     /*------------------------------------------------------------------
     [ Focus ]*/
     /*.focus-input100 {*/
-        /*display: block;*/
-        /*position: absolute;*/
-        /*border-radius: 3px;*/
-        /*bottom: 0;*/
-        /*left: 0;*/
-        /*z-index: -1;*/
-        /*width: 100%;*/
-        /*height: 100%;*/
-        /*box-shadow: 0px 0px 0px 0px;*/
-        /*!*color: rgba(1, 98, 199, 0.6);*!*/
+    /*display: block;*/
+    /*position: absolute;*/
+    /*border-radius: 3px;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*z-index: -1;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*box-shadow: 0px 0px 0px 0px;*/
+    /*!*color: rgba(1, 98, 199, 0.6);*!*/
     /*}*/
 
     /*.input100:focus + .focus-input100 {*/
-        /*-webkit-animation: anim-shadow 0.5s ease-in-out forwards;*/
-        /*animation: anim-shadow 0.5s ease-in-out forwards;*/
+    /*-webkit-animation: anim-shadow 0.5s ease-in-out forwards;*/
+    /*animation: anim-shadow 0.5s ease-in-out forwards;*/
     /*}*/
 
     @-webkit-keyframes anim-shadow {
@@ -413,8 +427,8 @@
     }
 
     /*.input100:focus + .focus-input100 + .symbol-input100 {*/
-        /*color: #b0b0b0;*/
-        /*padding-left: 18px;*/
+    /*color: #b0b0b0;*/
+    /*padding-left: 18px;*/
     /*}*/
 
     /*------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
+import wb from "./registerServiceWorker"
 import axios from 'axios'
 import router from './router'
 import store from './store'
@@ -64,6 +64,7 @@ if (window.location.hostname !== 'localhost' && window.location.hostname !== '19
 else
     axios.defaults.baseURL = location.protocol + '//' + window.location.hostname + ':8091/v1/';
 
+Vue.prototype.$workbox = wb;
 Vue.prototype.$toastSuccess = {
     title: `Success`,
     variant: 'success',

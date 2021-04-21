@@ -1,5 +1,18 @@
 <template>
     <div id="app">
+        <div class="update-dialog" v-if="prompt">
+            <div class="update-dialog__content">
+                A new version is found. Refresh to load it?
+            </div>
+            <div class="update-dialog__actions">
+                <button class="update-dialog__button update-dialog__button--confirm btn btn-success"
+                        @click="update"> Update
+                </button>
+                <button class="update-dialog__button update-dialog__button--cancel btn btn-secondary"
+                        @click="prompt = false"> Cancel
+                </button>
+            </div>
+        </div>
         <nav class="navbar navbar-light bg-dark justify-content-between fixed-top" v-if="isAuth">
             <a class="navbar-brand text-white">
                 <button class="btn btn-dark" @click.prevent="$router.back()" v-if="$route.path!=='/incidents'">
@@ -11,7 +24,7 @@
 
             <b-button-group>
                 <b-dropdown right text="JUAN" variant="dark"><!-- {{session.username}} -->
-                    <b-dropdown-item tag="button" @click="false">Cerrar Sesi&oacute;n</b-dropdown-item>
+                    <b-dropdown-item tag="button" @click="logout">Cerrar Sesi&oacute;n</b-dropdown-item>
                     <b-dropdown-divider></b-dropdown-divider>
                     <b-dropdown-item>Ver.{{version}}</b-dropdown-item>
                 </b-dropdown>
@@ -28,23 +41,23 @@
     export default {
         name: "App",
         created() {
-            // if (this.$workbox) this.$workbox.addEventListener("waiting", () => this.prompt = true);
-            // this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('idata'))
+            if (this.$workbox) this.$workbox.addEventListener("waiting", () => this.prompt = true);
+            this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('idadtaata'))
         },
         updated() {
-            // this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('idata'))
+            this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('adta'))
         },
         data() {
             return {
                 prompt: false,
                 show: false,
-                isAuth: true,//!!localStorage.getItem('xdata'),
+                isAuth: !!localStorage.getItem('adta'),
             };
         },
         computed: {
-            // session() {
-            //     return JSON.parse(localStorage.getItem('idata'));
-            // },
+            session() {
+                return JSON.parse(localStorage.getItem('adta'));
+            },
             version() {
                 return document.title.split('|')[1]
             }
@@ -58,10 +71,10 @@
                 this.show = val;
             },
             logout() {
-                this.$bvToast.toast('Good Bye!', this.$toastSuccess);
-                localStorage.removeItem('idata');
+                this.$bvToast.toast('Adios!', this.$toastSuccess);
+                localStorage.removeItem('adta');
                 this.$router.push({path: '/'});
-                this.isAuth = !!localStorage.getItem('idata');
+                this.isAuth = !!localStorage.getItem('adta');
             },
         },
     }
@@ -98,9 +111,37 @@
         .navbar-brand {
             font-size: 1rem !important;
         }
+
         img.icon {
             height: 30px !important;
         }
+    }
+
+    .update-dialog {
+        position: fixed;
+        left: 50%;
+        bottom: 64px;
+        transform: translateX(-50%);
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        padding: 12px;
+        max-width: 576px;
+        color: white;
+        background-color: #2c3e50;
+        text-align: left;
+    }
+
+    .update-dialog__actions {
+        display: flex;
+        margin-top: 8px;
+    }
+
+    .update-dialog__button {
+        margin-right: 8px;
+    }
+
+    .update-dialog__button--confirm {
+        margin-left: auto;
     }
 
 </style>

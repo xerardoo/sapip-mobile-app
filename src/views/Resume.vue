@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 4">
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body pt-0">
                     <h5 class="card-title text-center">
                         Informe de Incidente <br>
