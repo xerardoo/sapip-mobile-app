@@ -1,36 +1,36 @@
 <template>
     <div>
         <b-form @submit="onSubmit" v-if="currentStep == 2">
-            <div class="card mb-1" v-for="(p, index) in persons" :key="index">
+            <div class="card mb-1" v-for="(p, index) in personas" :key="index">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8 col-12">
                             <div>
                                 <b-form-group label="Nombre" label-for="txtFirstName">
-                                    <b-form-input id="txtFirstName" v-model="p.firstName" trim></b-form-input>
+                                    <b-form-input id="txtFirstName" v-model="p.first_name" trim required></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
                                 <b-form-group label="Apellido" label-for="txtLastName">
-                                    <b-form-input id="txtLastName" v-model="p.lastName" trim></b-form-input>
+                                    <b-form-input id="txtLastName" v-model="p.last_name" trim required></b-form-input>
                                 </b-form-group>
                             </div>
                             <div class="row">
                                 <div class="form-group col-8">
                                     <label for="birthdate">Fecha Nacimiento (Mes-D&iacute;a-Año)</label>
                                     <input class="form-control" type="date" placeholder="DD-MM-AAAA" id="birthdate"
-                                           v-model="p.birthDate"
+                                           v-model="p.birth_date"
                                            pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}">
                                 </div>
                                 <div class="form-group col-4">
                                     <label for="age">Edad</label>
                                     <input class="form-control" type="text" placeholder="-" id="age"
-                                           :value="calculateAge(p.birthDate)" readonly>
+                                           :value="calculateAge(p.birth_date)" readonly>
                                 </div>
                             </div>
                             <div>
                                 <b-form-group label="Lugar de Origen" label-for="txtHomeTown">
-                                    <b-form-input id="txtHomeTown" v-model="p.homeTown" trim></b-form-input>
+                                    <b-form-input id="txtHomeTown" v-model="p.hometown" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
@@ -41,8 +41,8 @@
 
                         </div>
                         <div class="col-md-4 col-12">
-                            <b-img thumbnail fluid center :src="p.photo" class="photo" blank-color="#777"
-                                   :blank="!p.photo"></b-img>
+                            <b-img thumbnail fluid center :src="p.photo_front" class="photo" blank-color="#777"
+                                   :blank="!p.photo_front"></b-img>
 
                             <div class="mt-1 text-center">
                                 <label :for="'camera-'+index" class="btn btn-outline-secondary">
@@ -56,13 +56,13 @@
 
                             <div>
                                 <b-form-group label="Tipo" label-for="txtType">
-                                    <b-form-select :options="types"></b-form-select>
+                                    <b-form-select :options="types" v-model="p.type_id" required></b-form-select>
                                 </b-form-group>
                             </div>
                         </div>
                     </div>
                     <b-button type="button" size="sm" variant="outline-secondary" @click.prevent="addPearson"
-                              v-if="persons.length===index+1">
+                              v-if="personas.length===index+1">
                         <font-awesome-icon icon="plus"/>
                         Involucrado
                     </b-button>
@@ -86,28 +86,34 @@
 
 <script>
     //require(`@/assets/icons/camera-96.png`)
+    import resource from '@/resources'
+
     export default {
         name: "Person",
         props: ['currentStep'],
+        mounted() {
+            this.loadIPersonTypes();
+        },
         data() {
             return {
-                types:[],
-                persons: [{
-                    firstName: '',
-                    lastName: '',
-                    birthDate: '',
-                    homeTown: '',
+                types: [],
+                personas: [{
+                    first_name: '',
+                    last_name: '',
+                    birth_date: '',
+                    hometown: '',
                     occupation: '',
-                    photo: '',
+                    photo_front: '',
+                    type_id: '',
                 }],
-                // form: {
-                //     firstName: '',
-                //     lastName: '',
-                // },
             }
         },
         computed: {},
         methods: {
+            loadIPersonTypes() {
+                resource.data.getPersonTypes()
+                    .then(res => res.data.forEach(item => this.types.push({value: item.id, text: item.name})))
+            },
             calculateAge(dob) {
                 dob = new Date(dob);
                 let diff_ms = Date.now() - dob.getTime();
@@ -124,18 +130,22 @@
                 reader.readAsDataURL(file);
             },
             addPearson() {
-                this.persons.push({
-                    firstName: '',
-                    lastName: '',
-                    photo: '',
+                this.personas.push({
+                    first_name: '',
+                    last_name: '',
+                    birth_date: '',
+                    hometown: '',
+                    occupation: '',
+                    photo_front: '',
+                    type_id: '',
                 });
             },
             save(index, data) {
-                this.persons[index]['photo'] = data;
+                this.personas[index]['photo_front'] = data;
             },
             onSubmit(e) {
                 e.preventDefault();
-                this.$emit('submit', this.persons);
+                this.$emit('submit', this.personas);
             },
         }
     }

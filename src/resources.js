@@ -66,5 +66,8 @@ export default {
         getIncidentTypes() {
             return axios.get(`/data/incident-types`);
         },
+        getPersonTypes() {
+            return axios.get(`/data/persona-types`);
+        },
     },
 };

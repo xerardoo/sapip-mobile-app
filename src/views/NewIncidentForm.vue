@@ -64,21 +64,12 @@
                     latitude: 0
                 },
                 incident: {
-                //     description: '',
-                //     type_id: '',
-                //     address: '',
-                //     area: '',
-                //     zipcode: '',
                     completed: false,
                 },
                 personas: {
-                //     firstName: '',
-                //     lastName: '',
                     completed: false,
                 },
                 vehicles: {
-                //     vin: '',
-                //     brand: '',
                     completed: false,
                 },
             }
@@ -101,6 +92,7 @@
                 setGeolocation: 'incident/setGeolocation',
                 setDescription: 'incident/setDescription',
                 setAddress: 'incident/setAddress',
+                setPersonas: 'incident/setPersonas',
             }),
             goToStep: function (step) {
                 this.currentStep = step;
@@ -118,7 +110,7 @@
                 this.incident.completed = true;
             },
             stepTwoSubmit(personas) {
-                console.log("PERSONAS", personas)
+                this.setPersonas(personas);
                 this.goToStep(3);
                 this.personas.completed = true;
             },

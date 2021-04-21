@@ -20,16 +20,23 @@ const incident = {
             zipcode: '',
             completed: false,
         },
-        personas: {
-            firstName: '',
-            lastName: '',
-            completed: false,
-        },
-        vehicles: {
-            vin: '',
-            brand: '',
-            completed: false,
-        },
+        personas: [
+            // {
+            //     first_name: '',
+            //     last_name: '',
+            //     birth_date: '',
+            //     hometown: '',
+            //     occupation: '',
+            //     photo_front: '',
+            //     type_id: '',
+            // }
+        ],
+        vehicles: [
+            {
+                vin: '',
+                brand: '',
+            }
+        ],
     },
 
     mutations: {
@@ -50,9 +57,9 @@ const incident = {
         SET_INCIDENT_DESCRIPTION(state, description) {
             state.incident = description;
         },
-        // SET_REFERENCE(state, reference) {
-        //     state.reference = reference;
-        // },
+        SET_PERSONAS(state, personas) {
+            state.personas = personas;
+        },
         // SET_CASH_AMOUNT(state, cash) {
         //     state.amounts.cash = cash;
         // },
@@ -118,9 +125,9 @@ const incident = {
         getGeolocation: (state) => {
             return state.geolocation;
         },
-        // getCustomerId: (state) => {
-        //     return state.customer_id;
-        // },
+        getPersonas: (state) => {
+            return state.personas;
+        },
         // getItems: (state) => {
         //     return state.items;
         // },
@@ -167,6 +174,9 @@ const incident = {
         },
         setDescription(ctx, address) {
             ctx.commit('SET_INCIDENT_DESCRIPTION', address);
+        },
+        setPersonas(ctx, personas) {
+            ctx.commit('SET_PERSONAS', personas);
         },
         // addItem(ctx, item) {
         //     // const cartItem = ctx.state.items.find((i) => i.menu_item_id === item.menu_item_id);
