@@ -36,13 +36,13 @@
                                 <b-form-group label="Nacionalidad">
                                     <b-form-radio v-model="p.nationality" value="M"> Mexicana
                                     </b-form-radio>
-                                    <b-form-radio v-model="p.nationality" value="F"> Extranjera
+                                    <b-form-radio v-model="p.nationality" value="E"> Extranjera
                                     </b-form-radio>
                                 </b-form-group>
                             </div>
 
                         </div>
-                        <div class="col-md-8 col-12 ">
+                        <div class="ol-md-8 ccol-12 ">
                             <div>
                                 <b-form-group label="Nombre" label-for="txtFirstName">
                                     <b-form-input id="txtFirstName" v-model="p.first_name" trim required></b-form-input>

@@ -6,9 +6,6 @@ import router from './router'
 import store from './store'
 
 import {BootstrapVue} from 'bootstrap-vue'
-import moment from 'moment'
-
-
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -18,34 +15,35 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
 import {
-    faUserSecret,
-    faChevronRight,
-    faChevronLeft,
-    faChevronUp,
-    faChevronDown,
-    faCamera,
-    faTasks,
-    faSave,
-    faFlagUsa,
-    faClipboardCheck,
-    faPencilAlt,
-    faDownload,
-    faAsterisk,
-    faSignInAlt,
-    faUser,
-    faSignOutAlt,
-    faInbox,
-    faBoxes,
-    faStopwatch,
-    faSpinner,
-    faCheckCircle,
-    faFingerprint,
-    faClipboard,
-    faUserFriends,
-    faCar,
     faArrowRight,
+    faAsterisk,
+    faBoxes,
+    faCamera,
+    faCar,
+    faCheckCircle,
+    faChevronDown,
+    faChevronLeft,
+    faChevronRight,
+    faChevronUp,
+    faClipboard,
+    faClipboardCheck,
+    faDownload,
+    faFingerprint,
+    faFlagUsa,
+    faInbox,
+    faPencilAlt,
     faPlus,
+    faSave,
+    faSignInAlt,
+    faSignOutAlt,
+    faSpinner,
+    faStopwatch,
+    faTasks,
+    faUser,
+    faUserFriends,
+    faUserSecret,
 } from '@fortawesome/free-solid-svg-icons'
+import moment from "moment";
 
 
 library.add(faUserSecret, faChevronRight, faChevronLeft, faChevronUp,
@@ -85,6 +83,12 @@ Vue.mixin({
             return moment.utc(date).local().format('D/MM/YY h:mm a');
         },
     },
+});
+Vue.filter('rounded', function (value, decimals) {
+    if (!value) value = 0;
+    if (!decimals) decimals = 0;
+    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    return value;
 });
 
 new Vue({

@@ -23,7 +23,7 @@
         <incident @submit="stepOneSubmit" :current-step="currentStep" v-if="viewCreated"/>
         <person @submit="stepTwoSubmit" :current-step="currentStep" v-if="viewCreated"/>
         <vehicle @submit="stepThreeSubmit" :current-step="currentStep" v-if="viewCreated"/>
-        <resume @submit="stepFourSubmit" :current-step="currentStep" :data="incident" v-if="viewCreated"/>
+        <resume @submit="stepFourSubmit" :current-step="currentStep" v-if="viewCreated"/>
     </div>
 </template>
 
@@ -90,6 +90,7 @@
         methods: {
             ...mapActions({
                 setGeolocation: 'incident/setGeolocation',
+                setDate: 'incident/setDate',
                 setDescription: 'incident/setDescription',
                 setAddress: 'incident/setAddress',
                 setPersonas: 'incident/setPersonas',
@@ -99,13 +100,13 @@
                 this.currentStep = step;
             },
             stepOneSubmit(data) {
-                this.setAddress(data.description);
-                this.setDescription({
+                this.setDate(data.date);
+                this.setDescription(data.description);
+                this.setAddress({
                     address: data.address,
                     area: data.area,
                     zipcode: data.zipcode,
                 });
-
 
                 this.goToStep(2);
                 this.incident.completed = true;

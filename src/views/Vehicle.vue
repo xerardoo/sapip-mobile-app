@@ -19,7 +19,7 @@
                             </div>
                             <div>
                                 <b-form-group label="Uso" label-for="txtUseType">
-                                    <b-form-select :options="use_types" v-model="v.use" required></b-form-select>
+                                    <b-form-select :options="use_types" v-model="v.use_type" required></b-form-select>
                                 </b-form-group>
                             </div>
                             <div>
@@ -113,7 +113,7 @@
                     plate: '',
                     plate_state: '',
                     origin: '',
-                    use: '',
+                    use_type: '',
                     observations: '',
                     photo: '',
                 }],
@@ -139,6 +139,14 @@
                     observations: '',
                     photo: '',
                 });
+            },
+            cameraChange(ev, index) {
+                const file = ev.target.files[0];
+                const reader = new FileReader();
+                reader.onloadstart = () => this.$emit('spinner', true);
+                reader.onload = e => this.save(index, e.target.result);
+                // reader.onloadend = () => this.$emit('spinner', false);
+                reader.readAsDataURL(file);
             },
             save(index, data) {
                 this.vehicles[index]['photo'] = data;

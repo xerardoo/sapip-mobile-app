@@ -28,6 +28,7 @@ const incident = {
             //     sex: '',
             //     alias: '',
             //     birth_date: '',
+            //     nationality: '',
             //     hometown: '',
             //     occupation: '',
             //     photo_front: '',
@@ -55,6 +56,9 @@ const incident = {
         SET_INCIDENT_ID(state, id) {
             state.id = id;
         },
+        SET_INCIDENT_DATE(state, date) {
+            state.incident.date = date;
+        },
         SET_LOCATION(state, position) {
             state.geolocation.accuracy = position['coords'].accuracy;
             state.geolocation.longitude = position['coords'].longitude;
@@ -67,7 +71,7 @@ const incident = {
             state.incident.zipcode = data.zipcode;
         },
         SET_INCIDENT_DESCRIPTION(state, description) {
-            state.incident = description;
+            state.incident.description = description;
         },
         SET_PERSONAS(state, personas) {
             state.personas = personas;
@@ -75,48 +79,6 @@ const incident = {
         SET_VEHICLES(state, vehicles) {
             state.vehicles = vehicles;
         },
-        // SET_CASH_AMOUNT(state, cash) {
-        //     state.amounts.cash = cash;
-        // },
-        // SET_CARD_AMOUNT(state, card) {
-        //     state.amounts.card = card;
-        // },
-        // SET_CHECK_AMOUNT(state, check) {
-        //     state.amounts.check = check;
-        // },
-        // SET_VOUCHER_AMOUNT(state, voucher) {
-        //     state.amounts.voucher = voucher;
-        // },
-        // SET_CART_STATUS(state, status) {
-        //     state.status = status;
-        // },
-        // SET_CART_STEP(state, step) {
-        //     state.step = step;
-        // },
-        // FETCH_CART(state) {
-        //     return state.items;
-        // },
-        // PUSH_CART(state, item) {
-        //     state.items.push(item);
-        // },
-        // INCREMENT_ITEM_QTY(state, cartItem) {
-        //     cartItem.qty++;
-        // },
-        // EMPTY_CART(state) {
-        //     state.items = [];
-        // },
-        // SET_CART(state, items) {
-        //     state.items = items;
-        // },
-        // SET_MODIFIER_MULTIPLE(state, {idx, multiple}) {
-        //     state.items[idx]['modifiers_selected'].multiple = multiple;
-        // },
-        // SET_MODIFIER_EXCEPTION(state, {idx, exception}) {
-        //     state.items[idx]['modifiers_selected'].exception = exception;
-        // },
-        // SET_MODIFIER_UNIQUE(state, {idx, unique}) {
-        //     state.items[idx]['modifiers_selected'].unique = unique;
-        // },
         // CLEAN_CART(state) {
         //     state.id = null;
         //     state.customer_id = null;
@@ -140,33 +102,15 @@ const incident = {
         getGeolocation: (state) => {
             return state.geolocation;
         },
+        getIncident: (state) => {
+            return state.incident;
+        },
         getPersonas: (state) => {
             return state.personas;
         },
         getVehicles: (state) => {
             return state.vehicles;
         },
-        // getItems: (state) => {
-        //     return state.items;
-        // },
-        // getItemsLength: (state) => {
-        //     return state.items.length;
-        // },
-        // getSubtotal: (state) => {
-        //     return state.subtotal;
-        // },
-        // getDiscounts: (state) => {
-        //     return state.discounts;
-        // },
-        // getTaxes: (state) => {
-        //     return state.taxes_after_discount;
-        // },
-        // getTotal: (state) => {
-        //     return state.total;
-        // },
-        // getserviceTypeId: (state) => {
-        //     return state.service_type_id;
-        // },
     },
 
     actions: {
@@ -187,6 +131,9 @@ const incident = {
         setGeolocation(ctx, position) {
             ctx.commit('SET_LOCATION', position);
         },
+        setDate(ctx, date) {
+            ctx.commit('SET_INCIDENT_DATE', date);
+        },
         setAddress(ctx, address) {
             ctx.commit('SET_INCIDENT_ADDRESS', address);
         },
@@ -199,66 +146,11 @@ const incident = {
         setVehicles(ctx, vehicles) {
             ctx.commit('SET_VEHICLES', vehicles);
         },
-        // addItem(ctx, item) {
-        //     // const cartItem = ctx.state.items.find((i) => i.menu_item_id === item.menu_item_id);
-        //     // if (!cartItem) ctx.commit('PUSH_CART', item);
-        //     // else ctx.commit('INCREMENT_ITEM_QTY', cartItem);
-        //     ctx.commit('PUSH_CART', item);
-        //     ctx.commit('CALCULATE_CART');
-        // },
-        // setItemModifierMulti(ctx, {idx, modifiers}) {
-        //     ctx.commit('SET_MODIFIER_MULTIPLE', {idx: idx, multiple: modifiers});
-        //     ctx.commit('CALCULATE_CART');
-        // },
-        // setItemModifierExcept(ctx, {idx, modifiers}) {
-        //     ctx.commit('SET_MODIFIER_EXCEPTION', {idx: idx, exception: modifiers});
-        //     ctx.commit('CALCULATE_CART');
-        // },
-        // setItemModifierUnique(ctx, {idx, modifiers}) {
-        //     ctx.commit('SET_MODIFIER_UNIQUE', {idx: idx, unique: modifiers});
-        //     ctx.commit('CALCULATE_CART');
-        // },
-        // setItemModifier(ctx, {idx, multi, except, unique}) {
-        //     ctx.commit('SET_MODIFIER_MULTIPLE', {idx: idx, multiple: multi});
-        //     ctx.commit('SET_MODIFIER_EXCEPTION', {idx: idx, exception: except});
-        //     ctx.commit('SET_MODIFIER_UNIQUE', {idx: idx, unique: unique});
-        //     ctx.commit('CALCULATE_CART');
-        // },
-        // fetchItems({commit}) {
-        //     return commit('FETCH_CART');
-        // },
-        // calculateCart({commit}) {
-        //     commit('CALCULATE_CART');
-        // },
-        // sendOrder: async (ctx, data) => {
-        //     if (status !== 'pending') ctx.commit('SET_CART_STATUS', data.status);
-        //     ctx.commit('SET_CART_STEP', data.step);
-        //     return await apiCalls.pos.order({
-        //         id: ctx.state.id,
-        //         reference: ctx.state.reference,
-        //         status: ctx.state.status,
-        //         step: ctx.state.step,
-        //         items: ctx.state.items,
-        //         subtotal: ctx.state.subtotal,
-        //         discounts: ctx.state.discounts,
-        //         taxes: ctx.state.taxes,
-        //         total: ctx.state.total,
-        //         customer_id: ctx.state.customer_id,
-        //         service_type_id: ctx.state.service_type_id,
-        //     });
-        // },
         save: async (ctx, data) => {
             return await resources.incident.save({data: data});
         },
         // cleanOrder(ctx) {
         //     ctx.commit('CLEAN_CART');
-        // },
-        // setCustomer(ctx, {name, id}) {
-        //     ctx.commit('SET_CUSTOMER', name);
-        //     ctx.commit('SET_CUSTOMER_ID', id);
-        // },
-        // setServiceTypeId(ctx, service_type_id) {
-        //     ctx.commit('SET_SERVICE_TYPE_ID', service_type_id);
         // },
     },
 };

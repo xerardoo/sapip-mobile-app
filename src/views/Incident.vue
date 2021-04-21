@@ -77,9 +77,13 @@
             }),
             getNow() {
                 let today = new Date();
+                let day = today.getDate();
                 let month = today.getMonth() + 1;
-                let date = today.getDate() + '-' + (month < 10 ? '0' + month : month) + '-' + today.getFullYear();
-                let time = today.getHours() + ":" + today.getMinutes();//+ ":" + today.getSeconds()
+                let hours = today.getHours();
+                let minutes = today.getMinutes();
+
+                let date = (day < 10 ? '0' + day : day) + '-' + (month < 10 ? '0' + month : month) + '-' + today.getFullYear();
+                let time = (hours < 10 ? '0' + hours : hours) + ":" + (minutes < 10 ? '0' + minutes : minutes);//+ ":" + today.getSeconds()
                 return date + ' ' + time;
             },
         },
