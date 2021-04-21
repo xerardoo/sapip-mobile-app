@@ -67,7 +67,7 @@
                                 </b-form-group>
                             </div>
                             <div>
-                                <b-form-group label="Placas Entidad Federativa/Estado" label-for="txtPlateState">
+                                <b-form-group label="Entidad Federativa/Estado" label-for="txtPlateState">
                                     <b-form-input id="txtOcupation" v-model="v.plate_state" trim></b-form-input>
                                 </b-form-group>
                             </div>

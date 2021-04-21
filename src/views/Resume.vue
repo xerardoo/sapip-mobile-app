@@ -125,7 +125,7 @@
                         <b-collapse id="accordion-personas" accordion="personas" role="tabpanel">
                             <div class="" v-for="(p, index) in personas" :key="index">
                                 <h6 class="bg-secondary text-center text-white pt-1 pb-1 mb-0">
-                                    Persona 0{{index +1}} - {{type(p.type_id)}}
+                                    Persona 0{{index +1}} - {{getType(p.type_id).name}}
                                 </h6>
 
                                 <table class="table table-bordered mb-0">
@@ -351,8 +351,8 @@
                 resource.data.getPersonTypes()
                     .then(res => this.types = res.data);
             },
-            type(id) {
-                return this.types.find(x => x.id === id)['name']
+            getType(id) {
+                return this.types.find(x => x.id === id)
             },
             getAge(dob) {
                 dob = new Date(dob);
@@ -387,7 +387,7 @@
             },
             onSubmit(e) {
                 e.preventDefault();
-                this.$emit('submit', this.form);
+                this.$emit('submit');
             },
         }
     }

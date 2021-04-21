@@ -1,4 +1,4 @@
-import resources from '@/resources';
+// import resources from '@/resources';
 
 const incident = {
     namespaced: true,
@@ -36,19 +36,19 @@ const incident = {
             // }
         ],
         vehicles: [
-            {
-                // vin: '',
-                // brand: '',
-                // subbrand: '',
-                // modelo: '',
-                // color: '',
-                // plate: '',
-                // plate_state: '',
-                // origin: '',
-                // use: '',
-                // observations: '',
-                // photo: '',
-            }
+            // {
+            //     vin: '',
+            //     brand: '',
+            //     subbrand: '',
+            //     modelo: '',
+            //     color: '',
+            //     plate: '',
+            //     plate_state: '',
+            //     origin: '',
+            //     use: '',
+            //     observations: '',
+            //     photo: '',
+            // }
         ],
     },
 
@@ -146,8 +146,9 @@ const incident = {
         setVehicles(ctx, vehicles) {
             ctx.commit('SET_VEHICLES', vehicles);
         },
-        save: async (ctx, data) => {
-            return await resources.incident.save({data: data});
+        save: async (ctx) => {
+            //console.log(JSON.stringify(ctx.state))
+            return await resources.incident.save(ctx.state);
         },
         // cleanOrder(ctx) {
         //     ctx.commit('CLEAN_CART');

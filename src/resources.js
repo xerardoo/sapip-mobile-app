@@ -56,7 +56,7 @@ export default {
     },
     incident: {
         save(data) {
-            return axios.post(`/incident`, data);
+            return axios.post(`/incident`, JSON.stringify(data));
         },
     },
     data: {

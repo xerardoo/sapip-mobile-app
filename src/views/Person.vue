@@ -44,7 +44,7 @@
                         </div>
                         <div class="ol-md-8 ccol-12 ">
                             <div>
-                                <b-form-group label="Nombre" label-for="txtFirstName">
+                                <b-form-group label="Nombre(s)" label-for="txtFirstName">
                                     <b-form-input id="txtFirstName" v-model="p.first_name" trim required></b-form-input>
                                 </b-form-group>
                             </div>
@@ -56,12 +56,12 @@
                             </div>
                             <div>
                                 <b-form-group label="Segundo Apellido" label-for="txtLastName">
-                                    <b-form-input id="txtLastName" v-model="p.last_name" trim required></b-form-input>
+                                    <b-form-input id="txtLastName" v-model="p.last_name" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
                                 <b-form-group label="Alias" label-for="txtAlias">
-                                    <b-form-input id="txtAlias" v-model="p.alias" trim required></b-form-input>
+                                    <b-form-input id="txtAlias" v-model="p.alias" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>

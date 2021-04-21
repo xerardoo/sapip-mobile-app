@@ -33,7 +33,7 @@
     import Person from './Person'
     import Vehicle from './Vehicle'
     import Resume from './Resume'
-    import {mapActions} from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
     export default {
         name: 'NewIncident',
@@ -57,12 +57,6 @@
             return {
                 viewCreated: false,
                 currentStep: 1,
-                geolocation: {
-                    timestamp: 0,
-                    accuracy: 0,
-                    longitude: 0,
-                    latitude: 0
-                },
                 incident: {
                     completed: false,
                 },
@@ -75,6 +69,9 @@
             }
         },
         computed: {
+            ...mapGetters({
+                geolocation: 'incident/getGeolocation',
+            }),
             currentStepStyle() {
                 switch (this.currentStep) {
                     case '1':
@@ -95,6 +92,7 @@
                 setAddress: 'incident/setAddress',
                 setPersonas: 'incident/setPersonas',
                 setVehicles: 'incident/setVehicles',
+                saveIncident: 'incident/save',
             }),
             goToStep: function (step) {
                 this.currentStep = step;
@@ -107,7 +105,6 @@
                     area: data.area,
                     zipcode: data.zipcode,
                 });
-
                 this.goToStep(2);
                 this.incident.completed = true;
             },
@@ -128,6 +125,7 @@
                 if (!this.geolocation.longitude && !this.geolocation.latitude) return;
 
                 alert("Save")
+                this.saveIncident();
             },
         }
     }
