@@ -22,7 +22,7 @@
                     </div>
                     <div class="row mt-1">
                         <div class="col-5">
-                            {{item.user.first_name}} {{item.user.last_name}}
+                            <!--{{item.user.first_name}} {{item.user.last_name}}-->
                         </div>
                         <div class="col-5">{{ dateToLocal(item.created_at) }}</div>
                         <div class="col-1">
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-1">{{item.id}}</div>
                         <div class="col-2">
-                            {{item.user.first_name}} {{item.user.last_name}}
+                            <!--{{item.user.first_name}} {{item.user.last_name}}-->
                         </div>
                         <div class="col-5 text-truncate">{{item.description}}</div>
                         <div class="col-3">{{ dateToLocal(item.created_at) }}</div>

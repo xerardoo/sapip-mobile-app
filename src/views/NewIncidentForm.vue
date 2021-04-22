@@ -88,6 +88,7 @@
             ...mapActions({
                 setGeolocation: 'incident/setGeolocation',
                 setDate: 'incident/setDate',
+                setType: 'incident/setType',
                 setDescription: 'incident/setDescription',
                 setAddress: 'incident/setAddress',
                 setPersonas: 'incident/setPersonas',
@@ -99,6 +100,7 @@
             },
             stepOneSubmit(data) {
                 this.setDate(data.date);
+                this.setType(data.type_id);
                 this.setDescription(data.description);
                 this.setAddress({
                     address: data.address,

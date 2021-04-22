@@ -70,6 +70,9 @@ const incident = {
             state.incident.area = data.area;
             state.incident.zipcode = data.zipcode;
         },
+        SET_INCIDENT_TYPE(state, type_id) {
+            state.incident.type_id = type_id;
+        },
         SET_INCIDENT_DESCRIPTION(state, description) {
             state.incident.description = description;
         },
@@ -131,6 +134,9 @@ const incident = {
         setGeolocation(ctx, position) {
             ctx.commit('SET_LOCATION', position);
         },
+        setType(ctx, date) {
+            ctx.commit('SET_INCIDENT_TYPE', date);
+        },
         setDate(ctx, date) {
             ctx.commit('SET_INCIDENT_DATE', date);
         },
@@ -147,8 +153,17 @@ const incident = {
             ctx.commit('SET_VEHICLES', vehicles);
         },
         save: async (ctx) => {
-            //console.log(JSON.stringify(ctx.state))
-            return await resources.incident.save(ctx.state);
+            return await resources.incident.save({
+                'date': ctx.state.incident.date,
+                'description': ctx.state.incident.description,
+                'address': ctx.state.incident.address,
+                'area': ctx.state.incident.area,
+                'zipcode': ctx.state.incident.zipcode,
+                'type_id': ctx.state.incident.type_id,
+                'personas': ctx.state.personas,
+                'vehicles': ctx.state.vehicles,
+                'location': ctx.state.geolocation,
+            });
         },
         // cleanOrder(ctx) {
         //     ctx.commit('CLEAN_CART');
