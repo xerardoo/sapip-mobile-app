@@ -58,6 +58,9 @@ export default {
         save(data) {
             return axios.post(`/incident`, JSON.stringify(data));
         },
+        get(id) {
+            return axios.get(`/incident/${id}`);
+        },
     },
     data: {
         GetGeocodingR(location) {

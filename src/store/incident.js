@@ -5,7 +5,7 @@ const incident = {
 
     state: {
         id: null,
-        geolocation: {
+        location: {
             timestamp: 0,
             accuracy: 0,
             longitude: 0,
@@ -59,11 +59,8 @@ const incident = {
         SET_INCIDENT_DATE(state, date) {
             state.incident.date = date;
         },
-        SET_LOCATION(state, position) {
-            state.geolocation.accuracy = position['coords'].accuracy;
-            state.geolocation.longitude = position['coords'].longitude;
-            state.geolocation.latitude = position['coords'].latitude;
-            state.geolocation.timestamp = position['timestamp'];
+        SET_INCIDENT_LOCATION(state, location) {
+            state.location = location;
         },
         SET_INCIDENT_ADDRESS(state, data) {
             state.incident.address = data.address;
@@ -102,8 +99,8 @@ const incident = {
         getId: (state) => {
             return state.id;
         },
-        getGeolocation: (state) => {
-            return state.geolocation;
+        getLocation: (state) => {
+            return state.location;
         },
         getIncident: (state) => {
             return state.incident;
@@ -117,22 +114,19 @@ const incident = {
     },
 
     actions: {
-        // load(ctx, data) {
-        //     ctx.commit('SET_CART_ID', data.id);
-        //     ctx.commit('SET_REFERENCE', data.reference);
-        //     ctx.commit('SET_CUSTOMER_ID', data.customer_id);
-        //     ctx.commit(
-        //         'SET_CUSTOMER',
-        //         data.customer_id !== 0 ? data.customer.first_name + ' ' + data.customer.last_name : null
-        //     );
-        //     ctx.commit('SET_CART_STATUS', data.status);
-        //     ctx.commit('SET_SERVICE_TYPE_ID', data.service_type_id);
-        //     ctx.commit('SET_CART_STEP', data.order_step.name);
-        //     data.items.forEach((item) => ctx.dispatch('addItem', item));
-        //     // ctx.commit('CALCULATE_CART');
-        // },
-        setGeolocation(ctx, position) {
-            ctx.commit('SET_LOCATION', position);
+        loadIncident(ctx, data) {
+            ctx.commit('SET_INCIDENT_ID', data.id);
+            ctx.commit('SET_INCIDENT_DATE', data.date);
+            ctx.commit('SET_INCIDENT_TYPE', data.type_id);
+            ctx.commit('SET_INCIDENT_ADDRESS', data);
+            ctx.commit('SET_INCIDENT_LOCATION', data.location);
+            ctx.commit('SET_INCIDENT_DESCRIPTION', data.description);
+            ctx.commit('SET_PERSONAS', data.personas);
+            ctx.commit('SET_VEHICLES', data.vehicles);
+
+        },
+        setLocation(ctx, position) {
+            ctx.commit('SET_INCIDENT_LOCATION', position);
         },
         setType(ctx, date) {
             ctx.commit('SET_INCIDENT_TYPE', date);
@@ -162,7 +156,7 @@ const incident = {
                 'type_id': ctx.state.incident.type_id,
                 'personas': ctx.state.personas,
                 'vehicles': ctx.state.vehicles,
-                'location': ctx.state.geolocation,
+                'location': ctx.state.location,
             });
         },
         // cleanOrder(ctx) {

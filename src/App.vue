@@ -19,7 +19,7 @@
                     <font-awesome-icon icon="chevron-left" class="text-white"/>
                 </button>
                 <img class="icon" :src="require(`@/assets/icons/${$route.meta.ico}.png`)"/>
-                <span class="font-weight-bold small">{{$route.meta.title}}</span>
+                <span class="font-weight-bold small">{{$route.meta.title}} {{id}}</span>
             </a>
 
             <b-button-group>
@@ -60,7 +60,10 @@
             },
             version() {
                 return document.title.split('|')[1]
-            }
+            },
+            id() {
+                return this.$route.params['id'] ? `#${this.$route.params['id']}` : '';
+            },
         },
         methods: {
             async update() {

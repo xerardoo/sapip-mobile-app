@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-form @submit="onSubmit" v-if="currentStep == 4">
+        <b-form @submit="onSubmit" v-if="currentStep == 4|| currentStep == 0">
             <div class="card mb-4">
                 <div class="card-body pt-0">
                     <h5 class="card-title text-center">
@@ -95,8 +95,8 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>{{geolocation.latitude | rounded(4)}}</td>
-                                        <td>{{geolocation.longitude | rounded(4)}}</td>
+                                        <td>{{location.latitude | rounded(4)}}</td>
+                                        <td>{{location.longitude | rounded(4)}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -117,7 +117,6 @@
                         </b-collapse>
                     </div>
 
-
                     <div class="card mt-1">
                         <div class="card-header bg-dark text-white" v-b-toggle.accordion-personas>
                             INVOLUCRADOS ({{personas.length}})
@@ -125,7 +124,7 @@
                         <b-collapse id="accordion-personas" accordion="personas" role="tabpanel">
                             <div class="" v-for="(p, index) in personas" :key="index">
                                 <h6 class="bg-secondary text-center text-white pt-1 pb-1 mb-0">
-                                    Persona 0{{index +1}} - {{getType(p.type_id).name}}
+                                    <!--Persona 0{{index +1}} - {{getType(p.type_id).name}}-->
                                 </h6>
 
                                 <table class="table table-bordered mb-0">
@@ -313,7 +312,7 @@
                     </div>
 
 
-                    <b-button type="submit" variant="primary" class="float-right mt-3 mb-3">
+                    <b-button type="submit" variant="primary" class="float-right mt-3 mb-3" v-if="currentStep == 4">
                         <font-awesome-icon icon="save"/>
                         Guardar
                     </b-button>
@@ -325,17 +324,23 @@
 
 <script>
     import resource from '@/resources'
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name: "Resume",
         props: ['currentStep'],
+        beforeCreate() {
+            this.id = this.$route.params['id'];
+            if (this.id)
+                resource.incident.get(this.id)
+                    .then(res => this.loadIncident(res.data));
+        },
         mounted() {
             this.loadIPersonTypes();
         },
         computed: {
             ...mapGetters({
-                geolocation: 'incident/getGeolocation',
+                location: 'incident/getLocation',
                 incident: 'incident/getIncident',
                 personas: 'incident/getPersonas',
                 vehicles: 'incident/getVehicles',
@@ -343,10 +348,14 @@
         },
         data() {
             return {
+                id: null,
                 types: [],
             }
         },
         methods: {
+            ...mapActions({
+                loadIncident: 'incident/loadIncident',
+            }),
             loadIPersonTypes() {
                 resource.data.getPersonTypes()
                     .then(res => this.types = res.data);

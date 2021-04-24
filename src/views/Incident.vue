@@ -80,7 +80,7 @@
         },
         computed: {
             ...mapGetters({
-                getLocation: 'incident/getGeolocation',
+                getLocation: 'incident/getLocation',
             }),
             getNow() {
                 let today = new Date();

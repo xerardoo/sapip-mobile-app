@@ -49,7 +49,12 @@
 
             navigator.geolocation.getCurrentPosition(
                 position => {
-                    this.setGeolocation(position);
+                    this.setLocation({
+                        accuracy: position['coords'].accuracy,
+                        longitude: position['coords'].longitude,
+                        latitude: position['coords'].latitude,
+                        timestamp: position['timestamp'],
+                    });
                     this.viewCreated = true;
                 }, err => this.$bvToast.toast(err.message, this.$toastError));
         },
@@ -70,7 +75,7 @@
         },
         computed: {
             ...mapGetters({
-                geolocation: 'incident/getGeolocation',
+                getLocation: 'incident/getLocation',
             }),
             currentStepStyle() {
                 switch (this.currentStep) {
@@ -86,7 +91,7 @@
         },
         methods: {
             ...mapActions({
-                setGeolocation: 'incident/setGeolocation',
+                setLocation: 'incident/setLocation',
                 setDate: 'incident/setDate',
                 setType: 'incident/setType',
                 setDescription: 'incident/setDescription',
@@ -124,7 +129,7 @@
                 if (!this.incident.completed) return this.goToStep(1);
                 if (!this.personas.completed) return this.goToStep(2);
                 if (!this.vehicles.completed) return this.goToStep(3);
-                if (!this.geolocation.longitude && !this.geolocation.latitude) return;
+                if (!this.location.longitude && !this.location.latitude) return;
 
                 alert("Save")
                 this.saveIncident();

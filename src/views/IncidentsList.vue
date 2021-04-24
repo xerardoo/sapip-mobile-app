@@ -13,7 +13,7 @@
                     <div class="col-4">FECHA</div>
                 </div>
             </b-list-group-item>
-            <b-list-group-item :to="`/incident/${item.id}`" v-for="(item, index) in records" v-bind:key="index"
+            <b-list-group-item :to="`/show-incident/${item.id}`" v-for="(item, index) in records" v-bind:key="index"
                                class="cpp">
                 <div class="d-block d-sm-block d-md-none">
                     <div class="row">
