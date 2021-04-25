@@ -4,6 +4,7 @@ import wb from "./registerServiceWorker"
 import axios from 'axios'
 import router from './router'
 import store from './store'
+import moment from "moment"
 
 import {BootstrapVue} from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
@@ -43,15 +44,12 @@ import {
     faUserFriends,
     faUserSecret,
 } from '@fortawesome/free-solid-svg-icons'
-import moment from "moment";
-
 
 library.add(faUserSecret, faChevronRight, faChevronLeft, faChevronUp,
     faChevronDown, faCamera, faTasks, faSave, faFlagUsa, faClipboardCheck,
     faPencilAlt, faDownload, faAsterisk, faSignInAlt, faUser, faSignOutAlt,
     faInbox, faBoxes, faStopwatch, faSpinner, faCheckCircle, faFingerprint,
     faClipboard, faUserFriends, faCar, faArrowRight, faPlus);
-
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

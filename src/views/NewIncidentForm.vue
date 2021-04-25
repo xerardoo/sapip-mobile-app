@@ -75,7 +75,7 @@
         },
         computed: {
             ...mapGetters({
-                getLocation: 'incident/getLocation',
+                location: 'incident/getLocation',
             }),
             currentStepStyle() {
                 switch (this.currentStep) {

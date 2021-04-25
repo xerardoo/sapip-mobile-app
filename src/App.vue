@@ -42,7 +42,7 @@
         name: "App",
         created() {
             if (this.$workbox) this.$workbox.addEventListener("waiting", () => this.prompt = true);
-            this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('idadtaata'))
+            this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('adta'))
         },
         updated() {
             this.$nextTick().then(() => this.isAuth = !!localStorage.getItem('adta'))
