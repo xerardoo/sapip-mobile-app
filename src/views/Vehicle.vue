@@ -148,6 +148,11 @@
                 if (!file) return;
 
                 new Compressor(file, {
+                    drew(context, canvas) {
+                        context.fillStyle = '#ffffff';
+                        context.font = '2rem serif';
+                        context.fillText('DSPM', (canvas.width/2)-20, canvas.height / 2);
+                    },
                     quality: 0.2,
                     success(result) {
                         const reader = new FileReader();
