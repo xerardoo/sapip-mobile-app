@@ -5,9 +5,9 @@
                 <div class="card-body pt-0">
                     <h5 class="card-title text-center">
                         Informe de Incidente <br>
-                        <small class="text-center">Fecha {{incident.date}}</small>
+                        <small class="text-center">Fecha {{incident.date}} {{incident.time}}</small>
                         <br>
-                        <small class="text-muted">(Vista Preliminar)</small>
+                        <small class="text-muted" v-if="currentStep == 4">(Vista Preliminar)</small>
                     </h5>
 
 

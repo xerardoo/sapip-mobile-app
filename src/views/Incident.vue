@@ -30,8 +30,8 @@
                     </b-form-group>
 
                     <!--<b-button type="submit" variant="primary" class="float-right">-->
-                        <!--<font-awesome-icon icon="arrow-right"/>-->
-                        <!--Siguiente-->
+                    <!--<font-awesome-icon icon="arrow-right"/>-->
+                    <!--Siguiente-->
                     <!--</b-button>-->
 
                     <div class="float next">
@@ -88,9 +88,14 @@
                 let month = today.getMonth() + 1;
                 let hours = today.getHours();
                 let minutes = today.getMinutes();
+                let seconds = today.getSeconds();
 
-                let date = (day < 10 ? '0' + day : day) + '-' + (month < 10 ? '0' + month : month) + '-' + today.getFullYear();
-                let time = (hours < 10 ? '0' + hours : hours) + ":" + (minutes < 10 ? '0' + minutes : minutes);//+ ":" + today.getSeconds()
+                let date = (day < 10 ? '0' + day : day) + '-' +
+                    (month < 10 ? '0' + month : month) + '-' +
+                    today.getFullYear();
+                let time = (hours < 10 ? '0' + hours : hours) + ":" +
+                    (minutes < 10 ? '0' + minutes : minutes) + ":" +
+                    (seconds < 10 ? '0' + seconds : seconds);
                 return date + ' ' + time;
             },
         },
