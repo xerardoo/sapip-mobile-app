@@ -1,10 +1,22 @@
 <template>
     <div>
-        <!--<form @submit.prevent="onSearch" class="mb-2">-->
-        <!--<input type="text" name="search" class="search" placeholder="" autocomplete="off"-->
-        <!--v-model="search" @focus="show=true" @blur="show=false">-->
-        <!--<button class="btn btn-outline-secondary mt-2" v-if="false">Search</button>-->
-        <!--</form>-->
+        <div class="">
+            <form @submit.prevent="onSearch" class="mb-2 row form-inline">
+                <div class="form-group col-12 col-md-5">
+                    <input type="text" name="search" class="form-control w-100" placeholder="Buscar"
+                           autocomplete="off"
+                           v-model="search">
+                </div>
+                <div class="col-8 col-md-4">
+                    <date-picker v-model="start" valueType="format" format="DD-MM-YYYY"
+                                 placeholder="DD-MM-AAAA" lang="es"></date-picker>
+                </div>
+                <div class="col-4 col-md-3">
+                    <button class="btn btn-outline-secondary mt-1 float-right" type="submit">Filtrar</button>
+                </div>
+            </form>
+        </div>
+
         <b-list-group>
             <b-list-group-item class="bg-light font-weight-bold ">
                 <div class="row">
@@ -68,6 +80,8 @@
             return {
                 show: false,
                 search: '',
+                start: '',
+                end: '',
                 limit: (window.innerWidth <= 425 ? 5 : 10),
                 records: [],
                 total_record: 0,
@@ -84,7 +98,10 @@
             },
             pageChange(page = 1) {
                 this.$emit('spinner', true);
-                axios.get(`/incident?search=${this.search}&offset=${page === 1 ? 0 : (page * this.limit) - this.limit}&limit=${this.limit}`)
+                if (this.start === null) this.start = "";
+                if (this.end === null) this.end = "";
+
+                axios.get(`/incident?search=${this.search}&start=${this.start}&end=${this.start}&offset=${page === 1 ? 0 : (page * this.limit) - this.limit}&limit=${this.limit}`)
                     .then((result) => {
                         this.records = result.data.records;
                         this.total_record = result.data.total_record;

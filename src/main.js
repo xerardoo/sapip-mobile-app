@@ -6,6 +6,11 @@ import router from './router'
 import store from './store'
 import moment from "moment"
 
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import 'vue2-datepicker/locale/es';
+
+
 import {BootstrapVue} from 'bootstrap-vue'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -52,7 +57,7 @@ library.add(faUserSecret, faChevronRight, faChevronLeft, faChevronUp,
     faClipboard, faUserFriends, faCar, faArrowRight, faPlus);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
+Vue.component('date-picker', DatePicker);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
