@@ -115,6 +115,7 @@
 <script>
     //require(`@/assets/icons/camera-96.png`)
     import resource from '@/resources'
+    import Compressor from 'compressorjs'
 
     export default {
         name: "Person",
@@ -154,12 +155,29 @@
                 return age > 0 ? Math.abs(age_dt.getUTCFullYear() - 1970) : '';
             },
             cameraChange(ev, index) {
+                let self = this;
                 const file = ev.target.files[0];
-                const reader = new FileReader();
-                reader.onloadstart = () => this.$emit('spinner', true);
-                reader.onload = e => this.save(index, e.target.result);
-                // reader.onloadend = () => this.$emit('spinner', false);
-                reader.readAsDataURL(file);
+                if (!file) return;
+
+                new Compressor(file, {
+                    strict: false,
+                    drew(context, canvas) {
+                        context.fillStyle = '#ffffff';
+                        context.font = '2rem serif';
+                        context.fillText('DSPM', (canvas.width/2)-20, canvas.height / 2);
+                    },
+                    quality: 0.2,
+                    success(result) {
+                        const reader = new FileReader();
+                        reader.onloadstart = () => self.$emit('spinner', true);
+                        reader.onload = e => self.save(index, e.target.result);
+                        // reader.onloadend = () => this.$emit('spinner', false);
+                        reader.readAsDataURL(result);
+                    },
+                    error(err) {
+                        console.log(err.message);
+                    },
+                });
             },
             addPearson() {
                 this.personas.push({

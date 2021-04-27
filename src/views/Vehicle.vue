@@ -98,6 +98,8 @@
     </div>
 </template>
 <script>
+    import Compressor from 'compressorjs'
+
     export default {
         name: "Vehicle",
         props: ['currentStep'],
@@ -141,12 +143,23 @@
                 });
             },
             cameraChange(ev, index) {
+                let self = this;
                 const file = ev.target.files[0];
-                const reader = new FileReader();
-                reader.onloadstart = () => this.$emit('spinner', true);
-                reader.onload = e => this.save(index, e.target.result);
-                // reader.onloadend = () => this.$emit('spinner', false);
-                reader.readAsDataURL(file);
+                if (!file) return;
+
+                new Compressor(file, {
+                    quality: 0.2,
+                    success(result) {
+                        const reader = new FileReader();
+                        reader.onloadstart = () => self.$emit('spinner', true);
+                        reader.onload = e => self.save(index, e.target.result);
+                        // reader.onloadend = () => this.$emit('spinner', false);
+                        reader.readAsDataURL(result);
+                    },
+                    error(err) {
+                        console.log(err.message);
+                    },
+                });
             },
             save(index, data) {
                 this.vehicles[index]['photo'] = data;
