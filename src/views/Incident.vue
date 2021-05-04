@@ -4,7 +4,7 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="float-right">
-                        <span class="badge badge-secondary">FECHA {{form.date}}</span>
+                        <span class="badge badge-secondary">FECHA HORA {{form.date | moment("DD-MM-YYYY HH:mm:ss")}}</span>
                     </div>
                     <div>
                         <b-form-group label="Tipo" label-for="txtType">
@@ -54,7 +54,7 @@
         name: "Incident",
         props: ['currentStep'],
         mounted() {
-            this.form.date = this.getNow;
+            this.form.date = new Date();
             this.loadIncidentTypes();
             resource.data.GetGeocodingR(this.getLocation)
                 .then(res => {

@@ -104,7 +104,7 @@
                 this.currentStep = step;
             },
             stepOneSubmit(data) {
-                this.setDate(data.date);
+                this.setDate(this.$moment(data.date, "YYYY-MM-DDTHH:mm:ss.SSS").format("DD-MM-YYYY HH:mm:ss"));
                 this.setType(data.type_id);
                 this.setDescription(data.description);
                 this.setAddress({
@@ -131,10 +131,7 @@
                 if (!this.vehicles.completed) return this.goToStep(3);
                 if (!this.location.longitude && !this.location.latitude) return;
 
-                this.saveIncident()
-                    .then(() => {
-                        this.$bvModal.msgBoxOk('Incidente Guardado')
-                    });
+                this.saveIncident().then(() => this.$bvModal.msgBoxOk('Incidente Guardado'));
             },
         }
     }

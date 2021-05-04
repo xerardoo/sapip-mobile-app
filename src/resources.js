@@ -57,8 +57,8 @@ export default {
         async save(data) {
             return await axios.post(`/incident`, JSON.stringify(data));
         },
-        get(id) {
-            return axios.get(`/incident/${id}`);
+        async get(id, config = {}) {
+            return await axios.get(`/incident/${id}`, config);
         },
     },
     data: {

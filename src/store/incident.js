@@ -58,9 +58,9 @@ const incident = {
             state.id = id;
         },
         SET_INCIDENT_DATE(state, date) {
-            let datetime = date.split(" ");
-            state.incident.date = datetime[0];
-            state.incident.time = datetime[1];
+            // let datetime = date.split(" ");
+            state.incident.date = date;
+            // state.incident.time = datetime[1];
         },
         SET_INCIDENT_LOCATION(state, location) {
             state.location = location;
@@ -119,7 +119,7 @@ const incident = {
     actions: {
         loadIncident(ctx, data) {
             ctx.commit('SET_INCIDENT_ID', data.id);
-            ctx.commit('SET_INCIDENT_DATE', data.date + " " + data.time);
+            ctx.commit('SET_INCIDENT_DATE', data.date);
             ctx.commit('SET_INCIDENT_TYPE', data.type_id);
             ctx.commit('SET_INCIDENT_ADDRESS', data);
             ctx.commit('SET_INCIDENT_LOCATION', data.location);
