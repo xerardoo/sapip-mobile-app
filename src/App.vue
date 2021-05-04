@@ -23,7 +23,7 @@
             </a>
 
             <b-button-group>
-                <b-dropdown right text="JUAN" variant="dark"><!-- {{session.username}} -->
+                <b-dropdown right :text="session.user.first_name+' '+session.user.last_name" variant="dark">
                     <b-dropdown-item tag="button" @click="logout">Cerrar Sesi&oacute;n</b-dropdown-item>
                     <b-dropdown-divider></b-dropdown-divider>
                     <b-dropdown-item>Ver.{{version}}</b-dropdown-item>
@@ -74,7 +74,7 @@
                 this.show = val;
             },
             logout() {
-                this.$bvToast.toast('Adios!', this.$toastSuccess);
+                this.$bvToast.toast(`Adios! ${this.session.user.first_name}`, this.$toastSuccess);
                 localStorage.removeItem('adta');
                 this.$router.push({path: '/'});
                 this.isAuth = !!localStorage.getItem('adta');

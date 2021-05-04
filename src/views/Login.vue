@@ -86,7 +86,8 @@
                 resource.auth.signin(this.form)
                     .then((response) => {
                         this.$emit('spinner', false);
-                        this.$bvToast.toast('Bienvenido', this.$toastSuccess);
+                        let user = response.data.user;
+                        this.$bvToast.toast(`Bienvenido ${user.rank} ${user.first_name} ${user.last_name}`, this.$toastSuccess);
                         localStorage.setItem('adta', JSON.stringify(response.data));
                         this.$router.push({path: '/incidents'});
                     })
