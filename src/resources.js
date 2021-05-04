@@ -1,6 +1,6 @@
-// import Vue from "vue";
+import Vue from "vue";
 import axios from 'axios';
-// import router from './router';
+import router from './router';
 // import NProgress from 'nprogress/nprogress';
 // import 'nprogress/nprogress.css';
 
@@ -8,55 +8,54 @@ import axios from 'axios';
 // NProgress.configure({showSpinner: false});
 //
 axios.interceptors.request.use(function (config) {
-    // const session = localStorage.getItem('noisessmx') ? JSON.parse(localStorage.getItem('noisessmx')) : '';
-    // config.headers['X-Token'] = session ? `${session.token}` : '';
+    const session = localStorage.getItem('adta') ? JSON.parse(localStorage.getItem('adta')) : '';
+    config.headers['X-Token'] = session ? `${session.token}` : '';
     // NProgress.start();
     return config;
 });
 
-// axios.interceptors.response.use(
-//     function (response) {
-//         // Any status code that lie within the range of 2xx cause this function to trigger
-//         // Do something with response data
-//         // NProgress.done();
-//         return response;
-//     },
-//     function (error) {
-//         // Any status codes that falls outside the range of 2xx cause this function to trigger
-//         // Do something with response error
-//         // console.log(error.response.data);
-//         // console.log(error.response.headers);
-//         // NProgress.done();
-//         console.log(error.response.status);
-//
-//         const vm = new Vue();
-//         let status = error.response.status;
-//         switch (status) {
-//             case 401:
-//                 // localStorage.removeItem('xdata');
-//                 // location.href = "/";
-//                 //localStorage.removeItem('noisessmx');
-//                 router.push('/');
-//                 break;
-//             case 500:
-//                 break;
-//         }
-//         if (status !== 404)
-//             vm.$bvToast.toast(`ERROR ${status}: ${error.response.data.msg}`, Vue.prototype.$toastError);
-//
-//         return Promise.reject(error);
-//     }
-// );
+axios.interceptors.response.use(
+    function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        // NProgress.done();
+        return response;
+    },
+    function (error) {
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+        // console.log(error.response.data);
+        // console.log(error.response.headers);
+        // NProgress.done();
+        console.log(error.response.status);
+
+        const vm = new Vue();
+        let status = error.response.status;
+        switch (status) {
+            case 401:
+                // location.href = "/";
+                localStorage.removeItem('adta');
+                router.push('/');
+                break;
+            case 500:
+                break;
+        }
+        if (status !== 404)
+            vm.$bvToast.toast(`ERROR ${status}: ${error.response.data.msg}`, Vue.prototype.$toastError);
+
+        return Promise.reject(error);
+    }
+);
 
 export default {
     auth: {
-        signin(data) {
-            return axios.post(`/signin`, data);
+        async signin(data) {
+            return await axios.post(`/signin`, data);
         },
     },
     incident: {
-        save(data) {
-            return axios.post(`/incident`, JSON.stringify(data));
+        async save(data) {
+            return await axios.post(`/incident`, JSON.stringify(data));
         },
         get(id) {
             return axios.get(`/incident/${id}`);

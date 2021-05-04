@@ -57,6 +57,7 @@
 
 <script>
     // import axios from "axios";
+    import resource from '@/resources'
 
     export default {
         name: "Login",
@@ -81,21 +82,22 @@
                     this.isValid = true;
                 }
                 this.$emit('spinner', true);
-                // axios.post('/login', this.form)
-                //     .then((response) => {
-                //         this.$emit('spinner', false);
-                //         this.$bvToast.toast('Bienvenido', this.$toastSuccess);
-                //         localStorage.setItem('adta', JSON.stringify(response.data));
-                //         this.$router.push({path: '/incidents'});
-                //     })
-                //     .catch(() => this.$emit('spinner', false));
 
-                this.$nextTick(() => {
-                    this.$emit('spinner', false);
-                    this.$bvToast.toast('Bienvenido', this.$toastSuccess);
-                    localStorage.setItem('adta', JSON.stringify({'hello': 'world'}));
-                    this.$router.push({path: '/incidents'});
-                });
+                resource.auth.signin(this.form)
+                    .then((response) => {
+                        this.$emit('spinner', false);
+                        this.$bvToast.toast('Bienvenido', this.$toastSuccess);
+                        localStorage.setItem('adta', JSON.stringify(response.data));
+                        this.$router.push({path: '/incidents'});
+                    })
+                    .catch(() => this.$emit('spinner', false));
+
+                // this.$nextTick(() => {
+                //     this.$emit('spinner', false);
+                //     this.$bvToast.toast('Bienvenido', this.$toastSuccess);
+                //     localStorage.setItem('adta', JSON.stringify({'hello': 'world'}));
+                //     this.$router.push({path: '/incidents'});
+                // });
             }
         },
     }

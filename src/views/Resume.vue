@@ -5,7 +5,7 @@
                 <div class="card-body pt-0">
                     <h5 class="card-title text-center">
                         Informe de Incidente <br>
-                        <small class="text-center">Fecha {{incident.date}} {{incident.time}}</small>
+                        <small class="text-center">Fecha {{incident.date | moment("DD-MM-YYYY HH:mm:ss")}}</small>
                         <br>
                         <small class="text-muted" v-if="currentStep == 4">(Vista Preliminar)</small>
                     </h5>

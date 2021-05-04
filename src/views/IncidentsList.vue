@@ -12,7 +12,10 @@
                                  placeholder="DD-MM-AAAA" lang="es"></date-picker>
                 </div>
                 <div class="col-4 col-md-3">
-                    <button class="btn btn-outline-secondary mt-1 float-right" type="submit">Filtrar</button>
+                    <button class="btn btn-outline-secondary mt-1 float-right" type="submit">
+                        <font-awesome-icon icon="filter"/>
+                        Filtrar
+                    </button>
                 </div>
             </form>
         </div>

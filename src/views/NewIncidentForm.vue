@@ -131,8 +131,10 @@
                 if (!this.vehicles.completed) return this.goToStep(3);
                 if (!this.location.longitude && !this.location.latitude) return;
 
-                alert("Save")
-                this.saveIncident();
+                this.saveIncident()
+                    .then(() => {
+                        this.$bvModal.msgBoxOk('Incidente Guardado')
+                    });
             },
         }
     }

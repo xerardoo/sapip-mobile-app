@@ -17,6 +17,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@/assets/util.css';
 
+import VueMoment from 'vue-moment'
+
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -48,17 +50,19 @@ import {
     faUser,
     faUserFriends,
     faUserSecret,
+    faFilter,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faUserSecret, faChevronRight, faChevronLeft, faChevronUp,
     faChevronDown, faCamera, faTasks, faSave, faFlagUsa, faClipboardCheck,
     faPencilAlt, faDownload, faAsterisk, faSignInAlt, faUser, faSignOutAlt,
     faInbox, faBoxes, faStopwatch, faSpinner, faCheckCircle, faFingerprint,
-    faClipboard, faUserFriends, faCar, faArrowRight, faPlus);
+    faClipboard, faUserFriends, faCar, faArrowRight, faPlus, faFilter);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('date-picker', DatePicker);
 Vue.use(BootstrapVue);
+Vue.use(VueMoment);
 
 Vue.config.productionTip = false;
 
