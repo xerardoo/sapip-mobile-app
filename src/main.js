@@ -5,6 +5,7 @@ import axios from 'axios'
 import router from './router'
 import store from './store'
 import moment from "moment"
+import VueBrowserUpdate from '@sum.cumo/vue-browserupdate';
 
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -63,6 +64,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('date-picker', DatePicker);
 Vue.use(BootstrapVue);
 Vue.use(VueMoment);
+Vue.use(VueBrowserUpdate, {options: {}});
 
 Vue.config.productionTip = false;
 

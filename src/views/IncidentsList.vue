@@ -106,7 +106,7 @@
 
                 axios.get(`/incident?search=${this.search}&start=${this.start}&end=${this.start}&offset=${page === 1 ? 0 : (page * this.limit) - this.limit}&limit=${this.limit}`)
                     .then((result) => {
-                        this.records = result.data.records;
+                        this.records = result.data.records ? result.data.records : [];
                         this.total_record = result.data.total_record;
                         this.$emit('spinner', false);
                     })

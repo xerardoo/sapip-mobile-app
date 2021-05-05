@@ -2,17 +2,18 @@
     <div id="app">
         <div class="update-dialog" v-if="prompt">
             <div class="update-dialog__content">
-                A new version is found. Refresh to load it?
+                Una nueva versi&oacute;n esta disponible. Deseas cargarla?
             </div>
             <div class="update-dialog__actions">
                 <button class="update-dialog__button update-dialog__button--confirm btn btn-success"
-                        @click="update"> Update
+                        @click="update"> Actualizar
                 </button>
                 <button class="update-dialog__button update-dialog__button--cancel btn btn-secondary"
-                        @click="prompt = false"> Cancel
+                        @click="prompt = false"> Cancelar
                 </button>
             </div>
         </div>
+
         <nav class="navbar navbar-light bg-dark justify-content-between fixed-top" v-if="isAuth">
             <a class="navbar-brand text-white">
                 <button class="btn btn-dark" @click.prevent="$router.back()" v-if="$route.path!=='/incidents'">
