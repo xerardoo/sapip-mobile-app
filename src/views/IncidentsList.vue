@@ -8,8 +8,8 @@
                            v-model="search">
                 </div>
                 <div class="col-8 col-md-4">
-                    <date-picker v-model="start" valueType="format" format="DD-MM-YYYY"
-                                 placeholder="DD-MM-AAAA" lang="es"></date-picker>
+                    <date-picker v-model="start" format="DD-MM-YYYY" type="date"
+                                 :editable="true" placeholder="DD-MM-AAAA" lang="es"/>
                 </div>
                 <div class="col-4 col-md-3">
                     <button class="btn btn-outline-secondary mt-1 float-right" type="submit">
@@ -36,8 +36,11 @@
                         <div class="col-9 text-truncate">{{item.description}}</div>
                     </div>
                     <div class="row mt-1">
-                        <div class="col-5">{{item.type.name}}</div>
-                        <div class="col-5">{{item.date}} {{item.time}}</div>
+                        <div class="col-5">
+                            <div class="color-r10 d-inline-flex" :style="{backgroundColor: item.type.color}"></div>
+                            {{item.type.name}}
+                        </div>
+                        <div class="col-5">{{item.date | moment("DD-MM-YYYY HH:mm:ss")}}</div>
                         <div class="col-1">
                             <font-awesome-icon icon="chevron-right"/>
                         </div>
@@ -46,9 +49,11 @@
                 <div class="d-none d-md-block">
                     <div class="row">
                         <div class="col-1">{{item.id}}</div>
-                        <div class="col-2">{{item.type.name}}</div>
-                        <div class="col-5 text-truncate">{{item.description}}</div>
-                        <div class="col-3">{{item.date}} {{item.time}}</div>
+                        <div class="col-7 text-truncate">
+                            <div class="color-r15 d-inline-flex" :style="{backgroundColor: item.type.color}"></div>
+                            {{item.type.name}} - {{item.description}}
+                        </div>
+                        <div class="col-3">{{item.date | moment("DD-MM-YYYY HH:mm:ss")}}</div>
                         <div class="col-1">
                             <font-awesome-icon icon="chevron-right"/>
                         </div>
@@ -101,10 +106,21 @@
             },
             pageChange(page = 1) {
                 this.$emit('spinner', true);
-                if (this.start === null) this.start = "";
-                if (this.end === null) this.end = "";
 
-                axios.get(`/incident?search=${this.search}&start=${this.start}&end=${this.start}&offset=${page === 1 ? 0 : (page * this.limit) - this.limit}&limit=${this.limit}`)
+                let end = this.start;
+                if (this.start === null) this.start = '';
+                if (end === null) end = '';
+
+                const start = (this.start !== '' ? this.$moment(this.start).format("YYYY-MM-DD HH:mm:ss") : '');
+
+                if (end !== '') {
+                    end.setHours(23);
+                    end.setMinutes(59);
+                    end.setSeconds(59);
+                }
+                if (end !== '') end = this.$moment(end).format("YYYY-MM-DD HH:mm:ss");
+
+                axios.get(`/incident?search=${this.search}&start=${start}&end=${end}&offset=${page === 1 ? 0 : (page * this.limit) - this.limit}&limit=${this.limit}`)
                     .then((result) => {
                         this.records = result.data.records ? result.data.records : [];
                         this.total_record = result.data.total_record;
