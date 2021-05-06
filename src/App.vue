@@ -23,13 +23,21 @@
                 <span class="font-weight-bold small">{{$route.meta.title}} {{id}}</span>
             </a>
 
-            <b-button-group>
-                <b-dropdown right :text="session.user.first_name+' '+session.user.last_name" variant="dark">
+            <!--<b-button-group>-->
+                <b-dropdown right variant="dark" toggle-class="p-0">
+                    <template #button-content>
+                        <span class="d-none d-sm-inline">
+                            {{session.user.first_name+' '+session.user.last_name}}
+                        </span>
+                        <span class="d-block d-sm-none">
+                            {{session.user.badge_number}}
+                        </span>
+                    </template>
                     <b-dropdown-item tag="button" @click="logout">Cerrar Sesi&oacute;n</b-dropdown-item>
                     <b-dropdown-divider></b-dropdown-divider>
                     <b-dropdown-item>Ver.{{version}}</b-dropdown-item>
                 </b-dropdown>
-            </b-button-group>
+            <!--</b-button-group>-->
         </nav>
 
         <div :class="{'container views': isAuth}">

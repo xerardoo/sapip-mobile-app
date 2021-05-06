@@ -456,7 +456,7 @@
         width: 100%;
         height: 62px;
         border-radius: 3px;
-        background: #04ad00;
+        background: #007bff;
         /*display: -webkit-box;*/
         /*display: -webkit-flex;*/
         /*display: -moz-box;*/

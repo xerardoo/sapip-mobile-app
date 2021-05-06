@@ -21,7 +21,7 @@
                                     <tr>
                                         <th>Grado/Cargo</th>
                                         <th>#Placa</th>
-                                        <th>#Unidad</th>
+                                        <th class="d-none d-sm-table-cell">#Unidad</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -30,11 +30,24 @@
                                         <td v-else>{{session.user.rank}}</td>
                                         <td v-if="id">{{user.badge_number}}</td>
                                         <td v-else>{{session.user.badge_number}}</td>
-                                        <td>{{incident.patrol_number}}</td>
+                                        <td class="d-none d-sm-table-cell">{{incident.patrol_number}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
-
+                                <div class="d-block d-sm-none">
+                                    <table class="table table-bordered mb-0">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>#Unidad</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="">{{incident.patrol_number}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <table class="table table-bordered mb-0">
                                     <thead class="thead-light">
                                     <tr>
@@ -135,34 +148,66 @@
                                     <tr>
                                         <th>Primer Apellido</th>
                                         <th>Segundo Apellido</th>
-                                        <th>Nombre(s)</th>
+                                        <th class="d-none d-sm-table-cell">Nombre(s)</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td class="text-capitalize">{{p.middle_name}}</td>
                                         <td class="text-capitalize">{{p.last_name}}</td>
-                                        <td class="text-capitalize">{{p.first_name}}</td>
+                                        <td class="text-capitalize d-none d-sm-table-cell">{{p.first_name}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <div class="d-block d-sm-none">
+                                    <table class="table table-bordered mb-0">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Nombre(s)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-capitalize">{{p.first_name}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 <table class="table table-bordered mb-0">
                                     <thead class="thead-light">
                                     <tr>
                                         <th>Alias</th>
-                                        <th>Nacionalidad</th>
-                                        <th>Sexo</th>
+                                        <th class="d-none d-sm-table-cell">Nacionalidad</th>
+                                        <th class="d-none d-sm-table-cell">Sexo</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td class="text-capitalize">{{p.alias}}</td>
-                                        <td>{{getNationality(p.nationality)}}</td>
-                                        <td>{{getSex(p.sex)}}</td>
+                                        <td class="d-none d-sm-table-cell">{{getNationality(p.nationality)}}</td>
+                                        <td class="d-none d-sm-table-cell">{{getSex(p.sex)}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
+
+                                <div class="d-block d-sm-none">
+                                    <table class="table table-bordered mb-0">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>Nacionalidad</th>
+                                            <th>Sexo</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{getNationality(p.nationality)}}</td>
+                                            <td>{{getSex(p.sex)}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-md-4 col-12 pr-md-0">

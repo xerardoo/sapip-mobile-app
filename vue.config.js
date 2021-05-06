@@ -1,7 +1,7 @@
 module.exports = {
     pwa: {
-        themeColor: "#343a40",
-        msTileColor: "#343a40",
+        themeColor: "#c1c1c1",
+        msTileColor: "#c1c1c1",
         appleMobileWebAppCache: "yes",
         manifestOptions: {
             name: "SAPIP Incidencias",

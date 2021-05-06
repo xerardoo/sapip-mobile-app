@@ -10,13 +10,13 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-md-7">
                             <b-form-group label="Primer Respondiente">
                                 <input type="text" class="form-control"
                                        :value="user.rank+' '+user.first_name+' '+user.last_name" readonly>
                             </b-form-group>
                         </div>
-                        <div class="col-5">
+                        <div class="col-md-5">
                             <b-form-group label="#Unidad">
                                 <b-form-input v-model="form.patrol_number" focus></b-form-input>
                             </b-form-group>

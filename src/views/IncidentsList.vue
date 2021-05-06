@@ -8,7 +8,7 @@
                            v-model="search">
                 </div>
                 <div class="col-8 col-md-4">
-                    <date-picker v-model="start" format="DD-MM-YYYY" type="date"
+                    <date-picker v-model="start" format="DD-MM-YYYY" type="date" input-class="form-control"
                                  :editable="true" placeholder="DD-MM-AAAA" lang="es"/>
                 </div>
                 <div class="col-4 col-md-3">
