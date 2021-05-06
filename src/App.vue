@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" oncontextmenu="return false" ondragstart="return false">
         <div class="update-dialog" v-if="prompt">
             <div class="update-dialog__content">
                 Una nueva versi&oacute;n esta disponible. Deseas cargarla?

@@ -72,4 +72,9 @@ export default {
             return axios.get(`/data/persona-types`);
         },
     },
+    audit: {
+        session(id) {
+            return axios.post(`/meta/session/${id}`);
+        },
+    },
 };

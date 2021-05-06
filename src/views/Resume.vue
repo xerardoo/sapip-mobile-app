@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="div">
         <b-form @submit="onSubmit" v-if="currentStep == 4|| currentStep == 0">
             <div class="card mb-4">
                 <div class="card-body pt-0">
@@ -340,6 +340,7 @@
         },
         mounted() {
             this.loadIPersonTypes();
+            if (this.id) this.$nextTick(() => this.$refs.div.addEventListener('copy', this.onCopy))
         },
         computed: {
             session() {
@@ -364,6 +365,9 @@
                 loadIncident: 'incident/loadIncident',
                 cleanIncident: 'incident/cleanIncident',
             }),
+            onCopy() {
+                resource.audit.session(this.id)
+            },
             loadIPersonTypes() {
                 resource.data.getPersonTypes()
                     .then(res => this.types = res.data);
