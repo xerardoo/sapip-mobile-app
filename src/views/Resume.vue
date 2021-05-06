@@ -10,25 +10,27 @@
                         <small class="text-muted" v-if="currentStep == 4">(Vista Preliminar)</small>
                     </h5>
 
-
                     <div class="card">
                         <div class="card-header bg-dark text-white" v-b-toggle.accordion-primer>
                             PRIMER RESPONDIENTE
                         </div>
                         <b-collapse id="accordion-primer" accordion="primer" role="tabpanel">
                             <div class="">
-
                                 <table class="table table-bordered mb-0">
                                     <thead class="thead-light">
                                     <tr>
                                         <th>Grado/Cargo</th>
+                                        <th>#Placa</th>
                                         <th>#Unidad</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>1er Oficial</td>
-                                        <td>0001</td>
+                                        <td v-if="id">{{user.rank}}</td>
+                                        <td v-else>{{session.user.rank}}</td>
+                                        <td v-if="id">{{user.badge_number}}</td>
+                                        <td v-else>{{session.user.badge_number}}</td>
+                                        <td>{{incident.patrol_number}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -41,7 +43,8 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>Jose Luis Perez Leon</td>
+                                        <td v-if="id">{{user.first_name}} {{user.last_name}}</td>
+                                        <td v-else>{{session.user.first_name}} {{session.user.last_name}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -329,7 +332,7 @@
     export default {
         name: "Resume",
         props: ['currentStep'],
-        beforeCreate() {
+        created() {
             this.id = this.$route.params['id'];
             if (this.id)
                 resource.incident.get(this.id)
@@ -339,11 +342,15 @@
             this.loadIPersonTypes();
         },
         computed: {
+            session() {
+                return JSON.parse(localStorage.getItem('adta'));
+            },
             ...mapGetters({
                 location: 'incident/getLocation',
                 incident: 'incident/getIncident',
                 personas: 'incident/getPersonas',
                 vehicles: 'incident/getVehicles',
+                user: 'incident/getUser',
             }),
         },
         data() {
@@ -355,6 +362,7 @@
         methods: {
             ...mapActions({
                 loadIncident: 'incident/loadIncident',
+                cleanIncident: 'incident/cleanIncident',
             }),
             loadIPersonTypes() {
                 resource.data.getPersonTypes()
@@ -398,7 +406,11 @@
                 e.preventDefault();
                 this.$emit('submit');
             },
-        }
+        },
+        destroyed() {
+            this.id = null;
+            this.cleanIncident();
+        },
     }
 </script>
 

@@ -3,9 +3,26 @@
         <b-form @submit="onSubmit" v-if="currentStep == 1">
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="float-right">
-                        <span class="badge badge-secondary">FECHA HORA {{form.date | moment("DD-MM-YYYY HH:mm:ss")}}</span>
+                    <div class="">
+                        <div class="text-right">
+                            <span class="badge badge-secondary">FECHA HORA {{form.date | moment("DD-MM-YYYY HH:mm:ss")}}</span>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-7">
+                            <b-form-group label="Primer Respondiente">
+                                <input type="text" class="form-control"
+                                       :value="user.rank+' '+user.first_name+' '+user.last_name" readonly>
+                            </b-form-group>
+                        </div>
+                        <div class="col-5">
+                            <b-form-group label="#Unidad">
+                                <b-form-input v-model="form.patrol_number" focus></b-form-input>
+                            </b-form-group>
+                        </div>
+                    </div>
+
                     <div>
                         <b-form-group label="Tipo" label-for="txtType">
                             <b-form-select v-model="form.type_id" :options="types"></b-form-select>
@@ -71,6 +88,7 @@
                 form: {
                     type_id: null,
                     date: null,
+                    patrol_number: '',
                     description: '',
                     address: '',
                     area: '',
@@ -79,6 +97,9 @@
             }
         },
         computed: {
+            user() {
+                return JSON.parse(localStorage.getItem('adta'))['user'];
+            },
             ...mapGetters({
                 getLocation: 'incident/getLocation',
             }),

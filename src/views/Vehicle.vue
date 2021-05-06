@@ -19,7 +19,7 @@
                             </div>
                             <div>
                                 <b-form-group label="Uso" label-for="txtUseType">
-                                    <b-form-select :options="use_types" v-model="v.use_type" required></b-form-select>
+                                    <b-form-select :options="use_types" v-model="v.use_type"></b-form-select>
                                 </b-form-group>
                             </div>
                             <div>
@@ -34,30 +34,30 @@
                         <div class="col-md-8 col-12">
                             <div>
                                 <b-form-group label="#Serie" label-for="txtSerie">
-                                    <b-form-input id="txtSerie" v-model="v.vin" max="18" trim required></b-form-input>
+                                    <b-form-input id="txtSerie" v-model="v.vin" max="18" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
                                 <b-form-group label="Marca" label-for="txtBrand">
-                                    <b-form-input id="txtBrand" v-model="v.brand" trim required></b-form-input>
+                                    <b-form-input id="txtBrand" v-model="v.brand" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div>
                                 <b-form-group label="SubMarca" label-for="txtSubBrand">
-                                    <b-form-input id="txtSubBrand" v-model="v.subbrand" trim required></b-form-input>
+                                    <b-form-input id="txtSubBrand" v-model="v.subbrand" trim></b-form-input>
                                 </b-form-group>
                             </div>
                             <div class="row">
                                 <div class="form-group col-6">
                                     <b-form-group label="Modelo (año)" label-for="txtYear">
-                                        <b-form-input type="number" min="1900" :max="maxYear" id="txtModel"
-                                                      v-model="v.modelo" trim
-                                                      required></b-form-input>
+                                        <b-form-input type="number" min="1941" :max="maxYear" id="txtModel"
+                                                      v-model="v.modelo" trim></b-form-input>
                                     </b-form-group>
                                 </div>
                                 <div class="form-group col-6">
                                     <b-form-group label="Color" label-for="txtColor">
-                                        <b-form-input id="txtColor" v-model="v.color" trim required></b-form-input>
+                                        <b-form-select id="txtColor" :options="colors"
+                                                       v-model="v.color"></b-form-select>
                                     </b-form-group>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                             <div>
                                 <b-form-group label="Observaciones" label-for="txtObservations">
                                     <b-form-textarea id="txtObservations" v-model="v.observations" trim rows="5"
-                                                     focus required></b-form-textarea>
+                                                     focus></b-form-textarea>
                                 </b-form-group>
                             </div>
                         </div>
@@ -100,12 +100,14 @@
 <script>
     import Compressor from 'compressorjs'
 
+
     export default {
         name: "Vehicle",
         props: ['currentStep'],
         data() {
             return {
                 use_types: ['Particular', 'Transporte Publico', 'Carga'],
+                colors: ['Blanco', 'Negro', 'Plateado', 'Gris', 'Azul', 'Rojo', 'Amarillo', 'Dorado', 'Verde', 'Cafe Claro', 'Marron', 'Anaranjado'],
                 vehicles: [{
                     vin: '',
                     brand: '',
@@ -151,7 +153,7 @@
                     drew(context, canvas) {
                         context.fillStyle = '#ffffff';
                         context.font = '2rem serif';
-                        context.fillText('DSPM', (canvas.width/2)-20, canvas.height / 2);
+                        context.fillText('DSPM', (canvas.width / 2) - 20, canvas.height / 2);
                     },
                     quality: 0.2,
                     success(result) {

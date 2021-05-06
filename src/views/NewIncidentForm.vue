@@ -93,6 +93,7 @@
             ...mapActions({
                 setLocation: 'incident/setLocation',
                 setDate: 'incident/setDate',
+                setPatrolNumber: 'incident/setPatrolNumber',
                 setType: 'incident/setType',
                 setDescription: 'incident/setDescription',
                 setAddress: 'incident/setAddress',
@@ -106,6 +107,7 @@
             stepOneSubmit(data) {
                 this.setDate(this.$moment(data.date, "YYYY-MM-DDTHH:mm:ss.SSS").format("DD-MM-YYYY HH:mm:ss"));
                 this.setType(data.type_id);
+                this.setPatrolNumber(data.patrol_number);
                 this.setDescription(data.description);
                 this.setAddress({
                     address: data.address,
@@ -128,7 +130,7 @@
             stepFourSubmit() {
                 if (!this.incident.completed) return this.goToStep(1);
                 if (!this.personas.completed) return this.goToStep(2);
-                if (!this.vehicles.completed) return this.goToStep(3);
+                // if (!this.vehicles.completed) return this.goToStep(3);
                 if (!this.location.longitude && !this.location.latitude) return;
 
                 this.saveIncident().then(() => this.$bvModal.msgBoxOk('Incidente Guardado'));
